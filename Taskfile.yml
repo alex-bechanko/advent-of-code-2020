@@ -5,4 +5,4 @@ version: '3'
 tasks:
   build:
     cmds:
-      - go build -o advent-of-code main.go
+      - go build -o advent-of-code-2020 main.go
