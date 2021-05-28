@@ -21,19 +21,17 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var fileInput string
-
-// day01Cmd represents the day01 command
-var day01Cmd = &cobra.Command{
-	Use:   "day01",
-	Short: "Compute the day 1 solutions for Advent of Code 2020",
-	Long:  `Computes part1 and part2 solutions for day 1 of Advent of Code 2020`,
-	Run: func(cmd *cobra.Command, args []string) {
-		solutions.Day01Solutions(fileInput)
-	},
-}
-
 func init() {
+	var fileInput string
+	var day01Cmd = &cobra.Command{
+		Use:   "day01",
+		Short: "Compute the day 1 solutions for Advent of Code 2020",
+		Long:  `Computes part1 and part2 solutions for day 1 of Advent of Code 2020`,
+		Run: func(cmd *cobra.Command, args []string) {
+			solutions.Day01Solutions(&fileInput)
+		},
+	}
+
 	rootCmd.AddCommand(day01Cmd)
 	day01Cmd.Flags().StringVarP(&fileInput, "input", "i", "inputs/day01.txt", "Path to the input data")
 }

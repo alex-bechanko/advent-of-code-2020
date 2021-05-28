@@ -70,8 +70,8 @@ func Day01Solution02(data []int) (string, error) {
 	return "", fmt.Errorf("No solution found for part1")
 }
 
-func Day01Solutions(path string) {
-	data, err := Day01Parse(path)
+func Day01Solutions(path *string) {
+	data, err := Day01Parse(*path)
 	if err != nil {
 		log.Fatal(err)
 	}
