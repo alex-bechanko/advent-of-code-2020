@@ -20,11 +20,33 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/alex-bechanko/advent-of-code-2020/pkg/solutions"
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 )
+
+func makeDayCommand(root *cobra.Command, day int, daySolutionFunc func(*string)) {
+	var fileInput string
+
+	cmdText := fmt.Sprintf("day%02d", day)
+	shortText := fmt.Sprintf("Compute the day %d solutions for Advent of Code 2020", day)
+	longText := fmt.Sprintf(`Computes part1 and part2 solutions for day %d of Advent of Code 2020`, day)
+
+	var dayCmd = &cobra.Command{
+		Use:   cmdText,
+		Short: shortText,
+		Long:  longText,
+		Run: func(cmd *cobra.Command, args []string) {
+			daySolutionFunc(&fileInput)
+		},
+	}
+	rootCmd.AddCommand(dayCmd)
+
+	var defaultInput = fmt.Sprintf("inputs/day%02d.txt", day)
+	dayCmd.Flags().StringVarP(&fileInput, "input", "i", defaultInput, "Path to the input data")
+}
 
 var cfgFile string
 
@@ -32,7 +54,7 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:   "advent-of-code-2020",
 	Short: "Compute solutions for Advent of Code 2020",
-	Long:  `Compute solutionsn for days 1-25 of Advent of Code 2020`,
+	Long:  `Compute solutions for days 1-25 of Advent of Code 2020`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
@@ -47,15 +69,10 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.advent-of-code-2020.yaml)")
 
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	makeDayCommand(rootCmd, 1, solutions.Day01Solutions)
+	makeDayCommand(rootCmd, 2, solutions.Day02Solutions)
 }
 
 // initConfig reads in config file and ENV variables if set.
