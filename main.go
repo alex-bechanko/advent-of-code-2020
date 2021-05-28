@@ -42,7 +42,7 @@ func makeDayCommand(root *cobra.Command, day int, daySolutionFunc func(*string))
 			daySolutionFunc(&fileInput)
 		},
 	}
-	rootCmd.AddCommand(dayCmd)
+	root.AddCommand(dayCmd)
 
 	var defaultInput = fmt.Sprintf("inputs/day%02d.txt", day)
 	dayCmd.Flags().StringVarP(&fileInput, "input", "i", defaultInput, "Path to the input data")
@@ -50,23 +50,22 @@ func makeDayCommand(root *cobra.Command, day int, daySolutionFunc func(*string))
 
 var cfgFile string
 
-var rootCmd = &cobra.Command{
-	Use:   "advent-of-code-2020",
-	Short: "Compute solutions for Advent of Code 2020",
-	Long:  `Compute solutions for days 1-25 of Advent of Code 2020`,
-}
-
 func main() {
-	cobra.CheckErr(rootCmd.Execute())
-}
 
-func init() {
+	var rootCmd = &cobra.Command{
+		Use:   "advent-of-code-2020",
+		Short: "Compute solutions for Advent of Code 2020",
+		Long:  `Compute solutions for days 1-25 of Advent of Code 2020`,
+	}
+
 	cobra.OnInitialize(initConfig)
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.advent-of-code-2020.yaml)")
 
 	makeDayCommand(rootCmd, 1, solutions.Day01Solutions)
 	makeDayCommand(rootCmd, 2, solutions.Day02Solutions)
+
+	cobra.CheckErr(rootCmd.Execute())
 }
 
 // initConfig reads in config file and ENV variables if set.
