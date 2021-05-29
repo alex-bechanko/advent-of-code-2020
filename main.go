@@ -67,6 +67,7 @@ func main() {
 	makeDayCommand(rootCmd, 3, solutions.Day03Solutions)
 	makeDayCommand(rootCmd, 4, solutions.Day04Solutions)
 	makeDayCommand(rootCmd, 5, solutions.Day05Solutions)
+	makeDayCommand(rootCmd, 6, solutions.Day06Solutions)
 
 	cobra.CheckErr(rootCmd.Execute())
 }
