@@ -18,13 +18,9 @@ package main
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/alex-bechanko/advent-of-code-2020/pkg/solutions"
 	"github.com/spf13/cobra"
-
-	homedir "github.com/mitchellh/go-homedir"
-	"github.com/spf13/viper"
 )
 
 func newDayCommand(day int) *cobra.Command {
@@ -75,8 +71,6 @@ func makeDay9Command(root *cobra.Command) {
 	day9.Flags().IntVarP(&lookback, "lookback", "l", defaultLookback, "How far back to look for the provided input")
 }
 
-var cfgFile string
-
 func main() {
 
 	var rootCmd = &cobra.Command{
@@ -84,10 +78,6 @@ func main() {
 		Short: "Compute solutions for Advent of Code 2020",
 		Long:  `Compute solutions for days 1-25 of Advent of Code 2020`,
 	}
-
-	cobra.OnInitialize(initConfig)
-
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.advent-of-code-2020.yaml)")
 
 	makeDayCommand(rootCmd, 1, solutions.Day01Solutions)
 	makeDayCommand(rootCmd, 2, solutions.Day02Solutions)
@@ -101,28 +91,7 @@ func main() {
 	//day 9 is slightly different because it needs a lookback argument to allow for multiple example inputs
 	makeDay9Command(rootCmd)
 
+	makeDayCommand(rootCmd, 10, solutions.Day08Solutions)
+
 	cobra.CheckErr(rootCmd.Execute())
-}
-
-// initConfig reads in config file and ENV variables if set.
-func initConfig() {
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-	} else {
-		// Find home directory.
-		home, err := homedir.Dir()
-		cobra.CheckErr(err)
-
-		// Search config in home directory with name ".advent-of-code-2020" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".advent-of-code-2020")
-	}
-
-	viper.AutomaticEnv() // read in environment variables that match
-
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
-	}
 }
