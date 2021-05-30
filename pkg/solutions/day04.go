@@ -62,7 +62,7 @@ func Day04Parse(path string) ([]map[string]string, error) {
 	return passports, nil
 }
 
-func Day04Solution01(passports []map[string]string) string {
+func Day04Solution01(passports []map[string]string) (string, error) {
 
 	count := 0
 	expectedFields := []string{"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"}
@@ -80,7 +80,7 @@ func Day04Solution01(passports []map[string]string) string {
 		}
 	}
 
-	return strconv.Itoa(count)
+	return strconv.Itoa(count), nil
 }
 
 func PassportYr(passport map[string]string, field string) (int, bool) {
@@ -189,7 +189,7 @@ func ValidPid(passport map[string]string) bool {
 	return true
 }
 
-func Day04Solution02(passports []map[string]string) string {
+func Day04Solution02(passports []map[string]string) (string, error) {
 	count := 0
 	validationFuncs := [](func(map[string]string) bool){ValidByr, ValidEcl, ValidEyr, ValidHcl, ValidHgt, ValidIyr, ValidPid}
 	for _, passport := range passports {
@@ -206,7 +206,7 @@ func Day04Solution02(passports []map[string]string) string {
 		}
 	}
 
-	return strconv.Itoa(count)
+	return strconv.Itoa(count), nil
 }
 
 func Day04Solutions(path *string) {
@@ -215,10 +215,10 @@ func Day04Solutions(path *string) {
 		log.Fatal(err)
 	}
 
-	soln01 := Day04Solution01(passports)
+	soln01, _ := Day04Solution01(passports)
 	fmt.Printf("Solution 1: %s\n", soln01)
 
-	soln02 := Day04Solution02(passports)
+	soln02, _ := Day04Solution02(passports)
 	fmt.Printf("Solution 1: %s\n", soln02)
 
 }

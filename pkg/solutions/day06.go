@@ -99,20 +99,20 @@ func Day06Parse(path string) ([]PlaneGroup, error) {
 	return groups, nil
 }
 
-func Day06Solution01(plane []PlaneGroup) string {
+func Day06Solution01(plane []PlaneGroup) (string, error) {
 	total := 0
 	for _, grp := range plane {
 		total += len(grp.AnyoneAnswers)
 	}
-	return strconv.Itoa(total)
+	return strconv.Itoa(total), nil
 }
 
-func Day06Solution02(plane []PlaneGroup) string {
+func Day06Solution02(plane []PlaneGroup) (string, error) {
 	total := 0
 	for _, grp := range plane {
 		total += len(grp.EveryoneAnswers)
 	}
-	return strconv.Itoa(total)
+	return strconv.Itoa(total), nil
 }
 
 func Day06Solutions(path *string) {
@@ -121,9 +121,9 @@ func Day06Solutions(path *string) {
 		log.Fatal(err)
 	}
 
-	soln01 := Day06Solution01(plane)
+	soln01, _ := Day06Solution01(plane)
 	fmt.Printf("Solution 1: %s\n", soln01)
 
-	soln02 := Day06Solution02(plane)
+	soln02, _ := Day06Solution02(plane)
 	fmt.Printf("Solution 2: %s\n", soln02)
 }

@@ -147,7 +147,7 @@ func Day05Parse(path string) ([]Seat, error) {
 	return seats, nil
 }
 
-func Day05Solution01(seats []Seat) string {
+func Day05Solution01(seats []Seat) (string, error) {
 	max := 0
 
 	for _, seat := range seats {
@@ -156,10 +156,10 @@ func Day05Solution01(seats []Seat) string {
 		}
 	}
 
-	return strconv.Itoa(max)
+	return strconv.Itoa(max), nil
 }
 
-func Day05Solution02(seats []Seat) string {
+func Day05Solution02(seats []Seat) (string, error) {
 	ids := make([]int, len(seats))
 	for i, seat := range seats {
 		ids[i] = seat.ID
@@ -171,11 +171,11 @@ func Day05Solution02(seats []Seat) string {
 		leftId := ids[i]
 		rightId := ids[i+1]
 		if rightId-leftId == 2 {
-			return strconv.Itoa(leftId + 1)
+			return strconv.Itoa(leftId + 1), nil
 		}
 	}
 
-	return "solution not found"
+	return "", fmt.Errorf("solution not found")
 
 }
 
@@ -185,9 +185,12 @@ func Day05Solutions(path *string) {
 		log.Fatal(err)
 	}
 
-	soln01 := Day05Solution01(seats)
+	soln01, _ := Day05Solution01(seats)
 	fmt.Printf("Solution 1: %s\n", soln01)
 
-	soln02 := Day05Solution02(seats)
+	soln02, err := Day05Solution02(seats)
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Printf("Solution 2: %s\n", soln02)
 }

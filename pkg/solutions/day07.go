@@ -100,7 +100,7 @@ func Day07Parse(path string) (BagGraph, error) {
 	return bags, nil
 }
 
-func Day07Solution01(grph BagGraph) string {
+func Day07Solution01(grph BagGraph) (string, error) {
 	targetBag := "shiny gold"
 
 	traveled := make(map[string]bool)
@@ -125,10 +125,10 @@ func Day07Solution01(grph BagGraph) string {
 		}
 	}
 
-	return strconv.Itoa(len(traveled))
+	return strconv.Itoa(len(traveled)), nil
 }
 
-func Day07Solution02(grph BagGraph) string {
+func Day07Solution02(grph BagGraph) (string, error) {
 	stack := []string{"shiny gold"}
 
 	bagCount := -1
@@ -151,7 +151,7 @@ func Day07Solution02(grph BagGraph) string {
 		}
 	}
 
-	return strconv.Itoa(bagCount)
+	return strconv.Itoa(bagCount), nil
 }
 
 func Day07Solutions(path *string) {
@@ -160,9 +160,9 @@ func Day07Solutions(path *string) {
 		log.Fatal(err)
 	}
 
-	soln01 := Day07Solution01(bags)
+	soln01, _ := Day07Solution01(bags)
 	fmt.Printf("Solution 1: %s\n", soln01)
 
-	soln02 := Day07Solution02(bags)
+	soln02, _ := Day07Solution02(bags)
 	fmt.Printf("Solution 2: %s\n", soln02)
 }

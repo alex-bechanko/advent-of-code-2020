@@ -27,8 +27,7 @@ func Test_Day01Parse(t *testing.T) {
 	expected := []int{1721, 979, 366, 299, 675, 1456}
 
 	data, err := Day01Parse(testPath)
-	assert.NoErrorf(t, err, "Recieved error when parsing %s", testPath, err)
-
+	assert.NoError(t, err)
 	assert.Equal(t, expected, data, "data does not match expected")
 }
 
@@ -36,15 +35,14 @@ func Test_Day01Solution01(t *testing.T) {
 	data := []int{1721, 979, 366, 299, 675, 1456}
 	expected := "514579"
 	actual, err := Day01Solution01(data)
-	assert.NoError(t, err, "Error occurred calculating day01 part01 solution")
+	assert.NoError(t, err)
 	assert.Equal(t, expected, actual)
-
 }
 
 func Test_Day01Solution02(t *testing.T) {
 	data := []int{1721, 979, 366, 299, 675, 1456}
 	expected := "241861950"
 	actual, err := Day01Solution02(data)
-	assert.NoError(t, err, "Error occurred calculating day01 part02 solution")
+	assert.NoError(t, err)
 	assert.Equal(t, expected, actual)
 }

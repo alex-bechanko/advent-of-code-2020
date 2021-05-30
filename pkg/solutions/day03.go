@@ -111,11 +111,11 @@ func TraverseSlope(forest Forest, dx, dy int) int {
 	return trees
 }
 
-func Day03Solution01(forest Forest) string {
-	return strconv.Itoa(TraverseSlope(forest, 3, 1))
+func Day03Solution01(forest Forest) (string, error) {
+	return strconv.Itoa(TraverseSlope(forest, 3, 1)), nil
 }
 
-func Day03Solution02(forest Forest) string {
+func Day03Solution02(forest Forest) (string, error) {
 	answer := 1
 	answer *= TraverseSlope(forest, 1, 1)
 	answer *= TraverseSlope(forest, 3, 1)
@@ -123,7 +123,7 @@ func Day03Solution02(forest Forest) string {
 	answer *= TraverseSlope(forest, 7, 1)
 	answer *= TraverseSlope(forest, 1, 2)
 
-	return strconv.Itoa(answer)
+	return strconv.Itoa(answer), nil
 }
 
 func Day03Solutions(path *string) {
@@ -132,10 +132,10 @@ func Day03Solutions(path *string) {
 		log.Fatal(err)
 	}
 
-	soln01 := Day03Solution01(forest)
+	soln01, _ := Day03Solution01(forest)
 	fmt.Printf("Solution 1: %s\n", soln01)
 
-	soln02 := Day03Solution02(forest)
+	soln02, _ := Day03Solution02(forest)
 	fmt.Printf("Solution 1: %s\n", soln02)
 
 }

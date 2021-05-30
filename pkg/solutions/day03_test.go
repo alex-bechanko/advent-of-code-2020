@@ -42,7 +42,7 @@ func Test_Day03Parse(t *testing.T) {
 		},
 	}
 	data, err := Day03Parse(testPath)
-	assert.NoErrorf(t, err, "Error occurred parsing %s", testPath)
+	assert.NoError(t, err)
 	assert.Equal(t, expected, data)
 }
 
@@ -65,8 +65,8 @@ func Test_Day03Solution01(t *testing.T) {
 		},
 	}
 	expected := "7"
-	actual := Day03Solution01(data)
-
+	actual, err := Day03Solution01(data)
+	assert.NoError(t, err)
 	assert.Equal(t, expected, actual)
 }
 
@@ -89,7 +89,7 @@ func Test_Day03Solution02(t *testing.T) {
 		},
 	}
 	expected := "336"
-	actual := Day03Solution02(data)
-
+	actual, err := Day03Solution02(data)
+	assert.NoError(t, err)
 	assert.Equal(t, expected, actual)
 }

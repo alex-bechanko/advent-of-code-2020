@@ -128,7 +128,7 @@ func Day02Parse(path string) ([]Password, error) {
 	return data, nil
 }
 
-func Day02Solution01(passwords []Password) string {
+func Day02Solution01(passwords []Password) (string, error) {
 	count := 0
 	for _, password := range passwords {
 		if checkCharRangePolicy(password) {
@@ -136,10 +136,10 @@ func Day02Solution01(passwords []Password) string {
 		}
 	}
 
-	return strconv.Itoa(count)
+	return strconv.Itoa(count), nil
 }
 
-func Day02Solution02(passwords []Password) string {
+func Day02Solution02(passwords []Password) (string, error) {
 	count := 0
 	for _, password := range passwords {
 		if checkCharPositionPolicy(password) {
@@ -147,7 +147,7 @@ func Day02Solution02(passwords []Password) string {
 		}
 	}
 
-	return strconv.Itoa(count)
+	return strconv.Itoa(count), nil
 }
 
 func Day02Solutions(path *string) {
@@ -156,9 +156,9 @@ func Day02Solutions(path *string) {
 		log.Fatal(err)
 	}
 
-	soln01 := Day02Solution01(passwords)
+	soln01, _ := Day02Solution01(passwords)
 	fmt.Printf("Solution 1: %s\n", soln01)
 
-	soln02 := Day02Solution02(passwords)
+	soln02, _ := Day02Solution02(passwords)
 	fmt.Printf("Solution 2: %s\n", soln02)
 }

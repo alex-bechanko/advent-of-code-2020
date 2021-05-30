@@ -48,7 +48,7 @@ func Test_Day05Parse(t *testing.T) {
 		},
 	}
 	data, err := Day05Parse(testPath)
-	assert.NoErrorf(t, err, "Error occurred parsing %s", testPath)
+	assert.NoError(t, err)
 	assert.Equal(t, expected, data)
 }
 
@@ -77,8 +77,8 @@ func Test_Day05Solution01(t *testing.T) {
 		},
 	}
 	expected := "820"
-	actual := Day05Solution01(data)
-
+	actual, err := Day05Solution01(data)
+	assert.NoError(t, err)
 	assert.Equal(t, expected, actual)
 }
 
@@ -106,8 +106,7 @@ func Test_Day05Solution02(t *testing.T) {
 			Cols:   []IntComparison{High, Low, Low},
 		},
 	}
-	expected := "solution not found"
-	actual := Day05Solution02(data)
 
-	assert.Equal(t, expected, actual)
+	_, err := Day05Solution02(data)
+	assert.Error(t, err)
 }
