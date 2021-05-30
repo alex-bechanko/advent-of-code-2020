@@ -25,7 +25,7 @@ import (
 	"strings"
 )
 
-func Day04Parse(path string) (*[]map[string]string, error) {
+func Day04Parse(path string) ([]map[string]string, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -57,15 +57,16 @@ func Day04Parse(path string) (*[]map[string]string, error) {
 			passport[fieldName] = fieldValue
 		}
 	}
+	passports = append(passports, passport)
 
-	return &passports, nil
+	return passports, nil
 }
 
-func Day04Solution01(passports *[]map[string]string) string {
+func Day04Solution01(passports []map[string]string) string {
 
 	count := 0
 	expectedFields := []string{"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"}
-	for _, passport := range *passports {
+	for _, passport := range passports {
 		valid := true
 		for _, f := range expectedFields {
 			if _, ok := passport[f]; !ok {
@@ -82,8 +83,8 @@ func Day04Solution01(passports *[]map[string]string) string {
 	return strconv.Itoa(count)
 }
 
-func PassportYr(passport *map[string]string, field string) (int, bool) {
-	val, ok := (*passport)[field]
+func PassportYr(passport map[string]string, field string) (int, bool) {
+	val, ok := passport[field]
 	if !ok {
 		return 0, false
 	}
@@ -96,7 +97,7 @@ func PassportYr(passport *map[string]string, field string) (int, bool) {
 	return yr, true
 }
 
-func ValidByr(passport *map[string]string) bool {
+func ValidByr(passport map[string]string) bool {
 	yr, ok := PassportYr(passport, "byr")
 	if !ok {
 		return false
@@ -105,7 +106,7 @@ func ValidByr(passport *map[string]string) bool {
 	return yr >= 1920 && yr <= 2002
 }
 
-func ValidIyr(passport *map[string]string) bool {
+func ValidIyr(passport map[string]string) bool {
 	yr, ok := PassportYr(passport, "iyr")
 	if !ok {
 		return false
@@ -114,7 +115,7 @@ func ValidIyr(passport *map[string]string) bool {
 	return yr >= 2010 && yr <= 2020
 }
 
-func ValidEyr(passport *map[string]string) bool {
+func ValidEyr(passport map[string]string) bool {
 	yr, ok := PassportYr(passport, "eyr")
 	if !ok {
 		return false
@@ -123,8 +124,8 @@ func ValidEyr(passport *map[string]string) bool {
 	return yr >= 2020 && yr <= 2030
 }
 
-func ValidHgt(passport *map[string]string) bool {
-	val, ok := (*passport)["hgt"]
+func ValidHgt(passport map[string]string) bool {
+	val, ok := passport["hgt"]
 	if !ok {
 		return false
 	}
@@ -148,8 +149,8 @@ func ValidHgt(passport *map[string]string) bool {
 	return false
 }
 
-func ValidHcl(passport *map[string]string) bool {
-	hcl, ok := (*passport)["hcl"]
+func ValidHcl(passport map[string]string) bool {
+	hcl, ok := passport["hcl"]
 	if !ok || len(hcl) != 7 || !strings.HasPrefix(hcl, "#") {
 		return false
 	}
@@ -163,8 +164,8 @@ func ValidHcl(passport *map[string]string) bool {
 	return true
 }
 
-func ValidEcl(passport *map[string]string) bool {
-	val, ok := (*passport)["ecl"]
+func ValidEcl(passport map[string]string) bool {
+	val, ok := passport["ecl"]
 	if !ok {
 		return false
 	}
@@ -172,8 +173,8 @@ func ValidEcl(passport *map[string]string) bool {
 	return val == "amb" || val == "blu" || val == "brn" || val == "gry" || val == "grn" || val == "hzl" || val == "oth"
 }
 
-func ValidPid(passport *map[string]string) bool {
-	val, ok := (*passport)["pid"]
+func ValidPid(passport map[string]string) bool {
+	val, ok := passport["pid"]
 	if !ok || len(val) != 9 {
 		return false
 	}
@@ -188,13 +189,13 @@ func ValidPid(passport *map[string]string) bool {
 	return true
 }
 
-func Day04Solution02(passports *[]map[string]string) string {
+func Day04Solution02(passports []map[string]string) string {
 	count := 0
-	validationFuncs := [](func(*map[string]string) bool){ValidByr, ValidEcl, ValidEyr, ValidHcl, ValidHgt, ValidIyr, ValidPid}
-	for _, passport := range *passports {
+	validationFuncs := [](func(map[string]string) bool){ValidByr, ValidEcl, ValidEyr, ValidHcl, ValidHgt, ValidIyr, ValidPid}
+	for _, passport := range passports {
 		valid := true
 		for _, f := range validationFuncs {
-			if !f(&passport) {
+			if !f(passport) {
 				valid = false
 				break
 			}
