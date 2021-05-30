@@ -63,10 +63,13 @@ func (f Forest) IsTree(x, y int) bool {
 
 }
 
-func Day03Parse(path string) (*Forest, error) {
+func Day03Parse(path string) (Forest, error) {
+
+	forest := Forest{}
+
 	file, err := os.Open(path)
 	if err != nil {
-		return nil, err
+		return forest, err
 	}
 	defer file.Close()
 
@@ -84,17 +87,15 @@ func Day03Parse(path string) (*Forest, error) {
 		rows = append(rows, strings.Split(line, ""))
 	}
 
-	forest := &Forest{
-		Rows:         rows,
-		RowLength:    rowlength,
-		ColumnHeight: columnheight,
-	}
+	forest.Rows = rows
+	forest.RowLength = rowlength
+	forest.ColumnHeight = columnheight
 
 	return forest, nil
 
 }
 
-func TraverseSlope(forest *Forest, dx, dy int) int {
+func TraverseSlope(forest Forest, dx, dy int) int {
 	x := 0
 	y := 0
 
@@ -110,11 +111,11 @@ func TraverseSlope(forest *Forest, dx, dy int) int {
 	return trees
 }
 
-func Day03Solution01(forest *Forest) string {
+func Day03Solution01(forest Forest) string {
 	return strconv.Itoa(TraverseSlope(forest, 3, 1))
 }
 
-func Day03Solution02(forest *Forest) string {
+func Day03Solution02(forest Forest) string {
 	answer := 1
 	answer *= TraverseSlope(forest, 1, 1)
 	answer *= TraverseSlope(forest, 3, 1)
