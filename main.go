@@ -27,25 +27,52 @@ import (
 	"github.com/spf13/viper"
 )
 
-func makeDayCommand(root *cobra.Command, day int, daySolutionFunc func(*string)) {
-	var fileInput string
-
+func newDayCommand(day int) *cobra.Command {
 	cmdText := fmt.Sprintf("day%02d", day)
 	shortText := fmt.Sprintf("Compute the day %d solutions for Advent of Code 2020", day)
 	longText := fmt.Sprintf(`Computes part1 and part2 solutions for day %d of Advent of Code 2020`, day)
 
-	var dayCmd = &cobra.Command{
+	return &cobra.Command{
 		Use:   cmdText,
 		Short: shortText,
 		Long:  longText,
-		Run: func(cmd *cobra.Command, args []string) {
-			daySolutionFunc(&fileInput)
-		},
 	}
-	root.AddCommand(dayCmd)
+}
 
+func addInputArg(dayCmd *cobra.Command, day int, fileInput *string) {
 	var defaultInput = fmt.Sprintf("inputs/day%02d.txt", day)
-	dayCmd.Flags().StringVarP(&fileInput, "input", "i", defaultInput, "Path to the input data")
+	dayCmd.Flags().StringVarP(fileInput, "input", "i", defaultInput, "Path to the input data")
+}
+
+func makeDayCommand(root *cobra.Command, day int, daySolutionFunc func(*string)) *cobra.Command {
+	var fileInput string
+
+	dayCmd := newDayCommand(day)
+
+	dayCmd.Run = func(cmd *cobra.Command, args []string) {
+		daySolutionFunc(&fileInput)
+	}
+
+	root.AddCommand(dayCmd)
+	addInputArg(dayCmd, day, &fileInput)
+
+	return dayCmd
+}
+
+func makeDay9Command(root *cobra.Command) {
+	var fileInput string
+	var lookback int
+
+	day9 := newDayCommand(9)
+	day9.Run = func(cmd *cobra.Command, args []string) {
+		solutions.Day09Solutions(&fileInput, lookback)
+	}
+	root.AddCommand(day9)
+
+	addInputArg(day9, 9, &fileInput)
+
+	defaultLookback := 25
+	day9.Flags().IntVarP(&lookback, "lookback", "l", defaultLookback, "How far back to look for the provided input")
 }
 
 var cfgFile string
@@ -70,6 +97,9 @@ func main() {
 	makeDayCommand(rootCmd, 6, solutions.Day06Solutions)
 	makeDayCommand(rootCmd, 7, solutions.Day07Solutions)
 	makeDayCommand(rootCmd, 8, solutions.Day08Solutions)
+
+	//day 9 is slightly different because it needs a lookback argument to allow for multiple example inputs
+	makeDay9Command(rootCmd)
 
 	cobra.CheckErr(rootCmd.Execute())
 }
