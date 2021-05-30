@@ -47,18 +47,19 @@ type Seat struct {
 	ID     int
 }
 
-func NewSeat(rows, cols []IntComparison) (*Seat, error) {
+func NewSeat(rows, cols []IntComparison) (Seat, error) {
+
 	row, err := findNum(0, 127, rows)
 	if err != nil {
-		return nil, err
+		return Seat{}, err
 	}
 
 	col, err := findNum(0, 7, cols)
 	if err != nil {
-		return nil, err
+		return Seat{}, err
 	}
 
-	return &Seat{
+	return Seat{
 		Rows:   rows,
 		Cols:   cols,
 		Row:    row,
@@ -95,7 +96,7 @@ func findNum(min, max int, directions []IntComparison) (int, error) {
 	return max, nil
 }
 
-func Day05Parse(path string) (*[]Seat, error) {
+func Day05Parse(path string) ([]Seat, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -140,10 +141,10 @@ func Day05Parse(path string) (*[]Seat, error) {
 			return nil, err
 		}
 
-		seats = append(seats, *seat)
+		seats = append(seats, seat)
 	}
 
-	return &seats, nil
+	return seats, nil
 }
 
 func Day05Solution01(seats []Seat) string {
@@ -184,9 +185,9 @@ func Day05Solutions(path *string) {
 		log.Fatal(err)
 	}
 
-	soln01 := Day05Solution01(*seats)
+	soln01 := Day05Solution01(seats)
 	fmt.Printf("Solution 1: %s\n", soln01)
 
-	soln02 := Day05Solution02(*seats)
+	soln02 := Day05Solution02(seats)
 	fmt.Printf("Solution 2: %s\n", soln02)
 }
