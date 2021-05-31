@@ -14,18 +14,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package solutions
+package day04
 
 import (
 	"bufio"
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 	"strings"
 )
 
-func Day04Parse(path string) ([]map[string]string, error) {
+func ParseFile(path string) ([]map[string]string, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -62,7 +61,7 @@ func Day04Parse(path string) ([]map[string]string, error) {
 	return passports, nil
 }
 
-func Day04Solution01(passports []map[string]string) (string, error) {
+func Solution1(passports []map[string]string) (string, error) {
 
 	count := 0
 	expectedFields := []string{"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"}
@@ -189,7 +188,7 @@ func ValidPid(passport map[string]string) bool {
 	return true
 }
 
-func Day04Solution02(passports []map[string]string) (string, error) {
+func Solution2(passports []map[string]string) (string, error) {
 	count := 0
 	validationFuncs := [](func(map[string]string) bool){ValidByr, ValidEcl, ValidEyr, ValidHcl, ValidHgt, ValidIyr, ValidPid}
 	for _, passport := range passports {
@@ -207,18 +206,4 @@ func Day04Solution02(passports []map[string]string) (string, error) {
 	}
 
 	return strconv.Itoa(count), nil
-}
-
-func Day04Solutions(path *string) {
-	passports, err := Day04Parse(*path)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	soln01, _ := Day04Solution01(passports)
-	fmt.Printf("Solution 1: %s\n", soln01)
-
-	soln02, _ := Day04Solution02(passports)
-	fmt.Printf("Solution 1: %s\n", soln02)
-
 }

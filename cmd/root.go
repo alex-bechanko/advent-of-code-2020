@@ -1,5 +1,5 @@
 /*
-Copyright © 2021 Alex Bechanko <alex.bechanko@gmail.com>
+Copyright © 2021 Alex Bechanko
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,12 +14,20 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package main
+package cmd
 
 import (
-	"github.com/alex-bechanko/advent-of-code-2020/cmd"
+	"github.com/spf13/cobra"
 )
 
-func main() {
-	cmd.Execute()
+var cfgFile string
+
+var rootCmd = &cobra.Command{
+	Use:   "advent-of-code-2020",
+	Short: "Compute solutions for Advent of Code 2020",
+	Long:  `Compute solutions for days 1-25 of Advent of Code 2020`,
+}
+
+func Execute() {
+	cobra.CheckErr(rootCmd.Execute())
 }

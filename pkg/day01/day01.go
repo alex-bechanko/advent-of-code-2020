@@ -14,17 +14,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package solutions
+package day01
 
 import (
 	"bufio"
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 )
 
-func Day01Parse(path string) ([]int, error) {
+func ParseFile(path string) ([]int, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -46,7 +45,7 @@ func Day01Parse(path string) ([]int, error) {
 	return data, nil
 }
 
-func Day01Solution01(data []int) (string, error) {
+func Solution1(data []int) (string, error) {
 	for i := 0; i+1 < len(data); i++ {
 		for j := i + 1; j < len(data); j++ {
 			if data[i]+data[j] == 2020 {
@@ -57,7 +56,7 @@ func Day01Solution01(data []int) (string, error) {
 	return "", fmt.Errorf("No solution found for part1")
 }
 
-func Day01Solution02(data []int) (string, error) {
+func Solution2(data []int) (string, error) {
 	for i := 0; i+2 < len(data); i++ {
 		for j := i + 1; j+1 < len(data); j++ {
 			for k := j + 1; k < len(data); k++ {
@@ -68,23 +67,4 @@ func Day01Solution02(data []int) (string, error) {
 		}
 	}
 	return "", fmt.Errorf("No solution found for part1")
-}
-
-func Day01Solutions(path *string) {
-	data, err := Day01Parse(*path)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	soln01, err := Day01Solution01(data)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Solution 1: %s\n", soln01)
-
-	soln02, err := Day01Solution02(data)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Solution 2: %s\n", soln02)
 }

@@ -14,12 +14,37 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package main
+package day02
 
 import (
-	"github.com/alex-bechanko/advent-of-code-2020/cmd"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func main() {
-	cmd.Execute()
+func Test_checkCharRangePolicy(t *testing.T) {
+	data := password{
+		contents: "abcde",
+		policy:   policy{num1: 1, num2: 3, char: 'a'},
+	}
+
+	assert.True(t, checkCharRangePolicy(data))
+}
+func Test_checkCharPositionPolicy(t *testing.T) {
+	data := password{
+		contents: "abcde",
+		policy:   policy{num1: 1, num2: 3, char: 'a'},
+	}
+
+	assert.True(t, checkCharPositionPolicy(data))
+}
+func Test_parsePassword(t *testing.T) {
+	expected := password{
+		contents: "abcde",
+		policy:   policy{num1: 1, num2: 3, char: 'a'},
+	}
+	data, err := parsePassword("1-3 a: abcde")
+
+	assert.NoError(t, err)
+	assert.Equal(t, expected, data)
 }

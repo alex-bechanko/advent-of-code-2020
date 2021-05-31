@@ -14,11 +14,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package solutions
+package day03
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -63,7 +62,7 @@ func (f Forest) IsTree(x, y int) bool {
 
 }
 
-func Day03Parse(path string) (Forest, error) {
+func ParseFile(path string) (Forest, error) {
 
 	forest := Forest{}
 
@@ -111,11 +110,11 @@ func TraverseSlope(forest Forest, dx, dy int) int {
 	return trees
 }
 
-func Day03Solution01(forest Forest) (string, error) {
+func Solution1(forest Forest) (string, error) {
 	return strconv.Itoa(TraverseSlope(forest, 3, 1)), nil
 }
 
-func Day03Solution02(forest Forest) (string, error) {
+func Solution2(forest Forest) (string, error) {
 	answer := 1
 	answer *= TraverseSlope(forest, 1, 1)
 	answer *= TraverseSlope(forest, 3, 1)
@@ -124,18 +123,4 @@ func Day03Solution02(forest Forest) (string, error) {
 	answer *= TraverseSlope(forest, 1, 2)
 
 	return strconv.Itoa(answer), nil
-}
-
-func Day03Solutions(path *string) {
-	forest, err := Day03Parse(*path)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	soln01, _ := Day03Solution01(forest)
-	fmt.Printf("Solution 1: %s\n", soln01)
-
-	soln02, _ := Day03Solution02(forest)
-	fmt.Printf("Solution 1: %s\n", soln02)
-
 }

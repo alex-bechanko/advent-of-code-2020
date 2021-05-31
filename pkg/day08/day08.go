@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package solutions
+package day08
 
 import (
 	"bufio"
@@ -58,7 +58,7 @@ func NewInstruction(line string) (Instruction, error) {
 	return inst, nil
 }
 
-func Day08Parse(path string) (Program, error) {
+func ParseFile(path string) (Program, error) {
 	program := Program{
 		Ip:  0,
 		Acc: 0,
@@ -127,12 +127,12 @@ func (prg *Program) Run() bool {
 	}
 }
 
-func Day08Solution01(prg Program) (string, error) {
+func Solution1(prg Program) (string, error) {
 	prg.Run()
 	return strconv.Itoa(prg.Acc), nil
 }
 
-func Day08Solution02(start Program) (string, error) {
+func Solution2(start Program) (string, error) {
 	for i, inst := range start.Commands {
 		if inst.Op == Jmp {
 			prg := start.Copy()
@@ -151,17 +151,4 @@ func Day08Solution02(start Program) (string, error) {
 		}
 	}
 	return "", fmt.Errorf("no solution")
-}
-
-func Day08Solutions(path *string) {
-	prg, err := Day08Parse(*path)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	soln01, _ := Day08Solution01(prg)
-	fmt.Printf("Solution 1: %s\n", soln01)
-
-	soln02, _ := Day08Solution02(prg)
-	fmt.Printf("Solution 2: %s\n", soln02)
 }

@@ -14,12 +14,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package solutions
+package day06
 
 import (
 	"bufio"
-	"fmt"
-	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -74,7 +72,7 @@ func (grp *PlaneGroup) AddPassenger(p Passenger) {
 
 }
 
-func Day06Parse(path string) ([]PlaneGroup, error) {
+func ParseFile(path string) ([]PlaneGroup, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -99,7 +97,7 @@ func Day06Parse(path string) ([]PlaneGroup, error) {
 	return groups, nil
 }
 
-func Day06Solution01(plane []PlaneGroup) (string, error) {
+func Solution1(plane []PlaneGroup) (string, error) {
 	total := 0
 	for _, grp := range plane {
 		total += len(grp.AnyoneAnswers)
@@ -107,23 +105,10 @@ func Day06Solution01(plane []PlaneGroup) (string, error) {
 	return strconv.Itoa(total), nil
 }
 
-func Day06Solution02(plane []PlaneGroup) (string, error) {
+func Solution2(plane []PlaneGroup) (string, error) {
 	total := 0
 	for _, grp := range plane {
 		total += len(grp.EveryoneAnswers)
 	}
 	return strconv.Itoa(total), nil
-}
-
-func Day06Solutions(path *string) {
-	plane, err := Day06Parse(*path)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	soln01, _ := Day06Solution01(plane)
-	fmt.Printf("Solution 1: %s\n", soln01)
-
-	soln02, _ := Day06Solution02(plane)
-	fmt.Printf("Solution 2: %s\n", soln02)
 }

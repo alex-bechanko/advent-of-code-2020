@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package solutions
+package day02
 
 import (
 	"testing"
@@ -22,65 +22,65 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_Day02Parse(t *testing.T) {
+func Test_ParseFile(t *testing.T) {
 	testPath := "../../inputs/day02.example.txt"
-	expected := []Password{
+	expected := []password{
 		{
-			Contents: "abcde",
-			Policy:   Policy{Num1: 1, Num2: 3, Char: 'a'},
+			contents: "abcde",
+			policy:   policy{num1: 1, num2: 3, char: 'a'},
 		},
 		{
-			Contents: "cdefg",
-			Policy:   Policy{Num1: 1, Num2: 3, Char: 'b'},
+			contents: "cdefg",
+			policy:   policy{num1: 1, num2: 3, char: 'b'},
 		},
 		{
-			Contents: "ccccccccc",
-			Policy:   Policy{Num1: 2, Num2: 9, Char: 'c'},
+			contents: "ccccccccc",
+			policy:   policy{num1: 2, num2: 9, char: 'c'},
 		},
 	}
-	data, err := Day02Parse(testPath)
+	data, err := ParseFile(testPath)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, data)
 }
 
-func Test_Day02Solution01(t *testing.T) {
-	data := []Password{
+func Test_Solution1(t *testing.T) {
+	data := []password{
 		{
-			Contents: "abcde",
-			Policy:   Policy{Num1: 1, Num2: 3, Char: 'a'},
+			contents: "abcde",
+			policy:   policy{num1: 1, num2: 3, char: 'a'},
 		},
 		{
-			Contents: "cdefg",
-			Policy:   Policy{Num1: 1, Num2: 3, Char: 'b'},
+			contents: "cdefg",
+			policy:   policy{num1: 1, num2: 3, char: 'b'},
 		},
 		{
-			Contents: "ccccccccc",
-			Policy:   Policy{Num1: 2, Num2: 9, Char: 'c'},
+			contents: "ccccccccc",
+			policy:   policy{num1: 2, num2: 9, char: 'c'},
 		},
 	}
 	expected := "2"
-	actual, err := Day02Solution01(data)
+	actual, err := Solution1(data)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, actual)
 }
 
-func Test_Day02Solution02(t *testing.T) {
-	data := []Password{
+func Test_Solution2(t *testing.T) {
+	data := []password{
 		{
-			Contents: "abcde",
-			Policy:   Policy{Num1: 1, Num2: 3, Char: 'a'},
+			contents: "abcde",
+			policy:   policy{num1: 1, num2: 3, char: 'a'},
 		},
 		{
-			Contents: "cdefg",
-			Policy:   Policy{Num1: 1, Num2: 3, Char: 'b'},
+			contents: "cdefg",
+			policy:   policy{num1: 1, num2: 3, char: 'b'},
 		},
 		{
-			Contents: "ccccccccc",
-			Policy:   Policy{Num1: 2, Num2: 9, Char: 'c'},
+			contents: "ccccccccc",
+			policy:   policy{num1: 2, num2: 9, char: 'c'},
 		},
 	}
 	expected := "1"
-	actual, err := Day02Solution02(data)
+	actual, err := Solution2(data)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, actual)
 }

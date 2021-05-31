@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package solutions
+package day08
 
 import (
 	"testing"
@@ -22,7 +22,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_Day08Parse(t *testing.T) {
+func Test_ParseFile(t *testing.T) {
 	testPath := "../../inputs/day08.example.txt"
 	expected := Program{
 		Ip:  0,
@@ -39,12 +39,12 @@ func Test_Day08Parse(t *testing.T) {
 			{Op: "acc", Arg: "+6"}},
 	}
 
-	data, err := Day08Parse(testPath)
+	data, err := ParseFile(testPath)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, data)
 }
 
-func Test_Day08Solution01(t *testing.T) {
+func Test_Solution1(t *testing.T) {
 	data := Program{
 		Ip:  0,
 		Acc: 0,
@@ -60,12 +60,12 @@ func Test_Day08Solution01(t *testing.T) {
 			{Op: "acc", Arg: "+6"}},
 	}
 	expected := "5"
-	actual, err := Day08Solution01(data)
+	actual, err := Solution1(data)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, actual)
 }
 
-func Test_Day08Solution02(t *testing.T) {
+func Test_Solution2(t *testing.T) {
 	data := Program{
 		Ip:  0,
 		Acc: 0,
@@ -81,7 +81,7 @@ func Test_Day08Solution02(t *testing.T) {
 			{Op: "acc", Arg: "+6"}},
 	}
 	expected := "8"
-	actual, err := Day08Solution02(data)
+	actual, err := Solution2(data)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, actual)
 }

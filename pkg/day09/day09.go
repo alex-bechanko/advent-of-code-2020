@@ -14,18 +14,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package solutions
+package day09
 
 import (
 	"bufio"
 	"errors"
-	"fmt"
 	"log"
 	"os"
 	"strconv"
 )
 
-func Day09Parse(path string) ([]int, error) {
+func ParseFile(path string) ([]int, error) {
 	xmas := make([]int, 0)
 
 	file, err := os.Open(path)
@@ -102,7 +101,7 @@ func ProcessXmas(xmas []int, lookback int) (bool, int, int) {
 	return true, 0, 0
 }
 
-func Day09Solution01(xmas []int, lookback int) (string, error) {
+func Solution1(xmas []int, lookback int) (string, error) {
 	valid, _, num := ProcessXmas(xmas, lookback)
 	if valid {
 		return "", errors.New("no solution")
@@ -111,7 +110,7 @@ func Day09Solution01(xmas []int, lookback int) (string, error) {
 	return strconv.Itoa(num), nil
 }
 
-func Day09Solution02(xmas []int, lookback int) (string, error) {
+func Solution2(xmas []int, lookback int) (string, error) {
 	valid, index, num := ProcessXmas(xmas, lookback)
 	if valid {
 		return "", errors.New("no solution")
@@ -133,23 +132,4 @@ func Day09Solution02(xmas []int, lookback int) (string, error) {
 	}
 
 	return "", errors.New("no solution")
-}
-
-func Day09Solutions(path *string, lookback int) {
-	xmas, err := Day09Parse(*path)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	soln01, err := Day09Solution01(xmas, lookback)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Solution 1: %s\n", soln01)
-
-	soln02, err := Day09Solution02(xmas, lookback)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Solution 2: %s\n", soln02)
 }

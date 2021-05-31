@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package solutions
+package day03
 
 import (
 	"testing"
@@ -22,7 +22,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_Day03Parse(t *testing.T) {
+func Test_ParseFile(t *testing.T) {
 	testPath := "../../inputs/day03.example.txt"
 	expected := Forest{
 		RowLength:    11,
@@ -41,12 +41,12 @@ func Test_Day03Parse(t *testing.T) {
 			{".", "#", ".", ".", "#", ".", ".", ".", "#", ".", "#"},
 		},
 	}
-	data, err := Day03Parse(testPath)
+	data, err := ParseFile(testPath)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, data)
 }
 
-func Test_Day03Solution01(t *testing.T) {
+func Test_Solution1(t *testing.T) {
 	data := Forest{
 		RowLength:    11,
 		ColumnHeight: 11,
@@ -65,12 +65,12 @@ func Test_Day03Solution01(t *testing.T) {
 		},
 	}
 	expected := "7"
-	actual, err := Day03Solution01(data)
+	actual, err := Solution1(data)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, actual)
 }
 
-func Test_Day03Solution02(t *testing.T) {
+func Test_Solution2(t *testing.T) {
 	data := Forest{
 		RowLength:    11,
 		ColumnHeight: 11,
@@ -89,7 +89,7 @@ func Test_Day03Solution02(t *testing.T) {
 		},
 	}
 	expected := "336"
-	actual, err := Day03Solution02(data)
+	actual, err := Solution2(data)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, actual)
 }

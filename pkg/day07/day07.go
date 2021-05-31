@@ -14,12 +14,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package solutions
+package day07
 
 import (
 	"bufio"
-	"fmt"
-	"log"
 	"os"
 	"strconv"
 	"strings"
@@ -57,7 +55,7 @@ type BagGraphEdge struct {
 	Weight int
 }
 
-func Day07Parse(path string) (BagGraph, error) {
+func ParseFile(path string) (BagGraph, error) {
 	bags := NewBagGraph()
 
 	file, err := os.Open(path)
@@ -100,7 +98,7 @@ func Day07Parse(path string) (BagGraph, error) {
 	return bags, nil
 }
 
-func Day07Solution01(grph BagGraph) (string, error) {
+func Solution1(grph BagGraph) (string, error) {
 	targetBag := "shiny gold"
 
 	traveled := make(map[string]bool)
@@ -128,7 +126,7 @@ func Day07Solution01(grph BagGraph) (string, error) {
 	return strconv.Itoa(len(traveled)), nil
 }
 
-func Day07Solution02(grph BagGraph) (string, error) {
+func Solution2(grph BagGraph) (string, error) {
 	stack := []string{"shiny gold"}
 
 	bagCount := -1
@@ -152,17 +150,4 @@ func Day07Solution02(grph BagGraph) (string, error) {
 	}
 
 	return strconv.Itoa(bagCount), nil
-}
-
-func Day07Solutions(path *string) {
-	bags, err := Day07Parse(*path)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	soln01, _ := Day07Solution01(bags)
-	fmt.Printf("Solution 1: %s\n", soln01)
-
-	soln02, _ := Day07Solution02(bags)
-	fmt.Printf("Solution 2: %s\n", soln02)
 }

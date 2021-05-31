@@ -14,12 +14,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package solutions
+package day05
 
 import (
 	"bufio"
 	"fmt"
-	"log"
 	"math"
 	"os"
 	"sort"
@@ -96,7 +95,7 @@ func findNum(min, max int, directions []IntComparison) (int, error) {
 	return max, nil
 }
 
-func Day05Parse(path string) ([]Seat, error) {
+func ParseFile(path string) ([]Seat, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
@@ -147,7 +146,7 @@ func Day05Parse(path string) ([]Seat, error) {
 	return seats, nil
 }
 
-func Day05Solution01(seats []Seat) (string, error) {
+func Solution1(seats []Seat) (string, error) {
 	max := 0
 
 	for _, seat := range seats {
@@ -159,7 +158,7 @@ func Day05Solution01(seats []Seat) (string, error) {
 	return strconv.Itoa(max), nil
 }
 
-func Day05Solution02(seats []Seat) (string, error) {
+func Solution2(seats []Seat) (string, error) {
 	ids := make([]int, len(seats))
 	for i, seat := range seats {
 		ids[i] = seat.ID
@@ -177,20 +176,4 @@ func Day05Solution02(seats []Seat) (string, error) {
 
 	return "", fmt.Errorf("solution not found")
 
-}
-
-func Day05Solutions(path *string) {
-	seats, err := Day05Parse(*path)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	soln01, _ := Day05Solution01(seats)
-	fmt.Printf("Solution 1: %s\n", soln01)
-
-	soln02, err := Day05Solution02(seats)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("Solution 2: %s\n", soln02)
 }

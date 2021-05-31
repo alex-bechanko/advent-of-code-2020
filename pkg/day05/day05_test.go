@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package solutions
+package day05
 
 import (
 	"testing"
@@ -22,7 +22,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_Day05Parse(t *testing.T) {
+func Test_ParseFile(t *testing.T) {
 	testPath := "../../inputs/day05.example.txt"
 	expected := []Seat{
 		{
@@ -47,12 +47,12 @@ func Test_Day05Parse(t *testing.T) {
 			Cols:   []IntComparison{High, Low, Low},
 		},
 	}
-	data, err := Day05Parse(testPath)
+	data, err := ParseFile(testPath)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, data)
 }
 
-func Test_Day05Solution01(t *testing.T) {
+func Test_Solution1(t *testing.T) {
 	data := []Seat{
 		{
 			Row:    70,
@@ -77,12 +77,12 @@ func Test_Day05Solution01(t *testing.T) {
 		},
 	}
 	expected := "820"
-	actual, err := Day05Solution01(data)
+	actual, err := Solution1(data)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, actual)
 }
 
-func Test_Day05Solution02(t *testing.T) {
+func Test_Solution2(t *testing.T) {
 	data := []Seat{
 		{
 			Row:    70,
@@ -107,6 +107,6 @@ func Test_Day05Solution02(t *testing.T) {
 		},
 	}
 
-	_, err := Day05Solution02(data)
+	_, err := Solution2(data)
 	assert.Error(t, err)
 }

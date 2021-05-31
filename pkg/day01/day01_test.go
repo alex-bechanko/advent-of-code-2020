@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package solutions
+package day01
 
 import (
 	"testing"
@@ -22,31 +22,27 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_Day09Parse(t *testing.T) {
-	testPath := "../../inputs/day09.example.txt"
-	expected := []int{35, 20, 15, 25, 47, 40, 62, 55, 65, 95, 102, 117, 150, 182, 127, 219, 299, 277, 309, 576}
+func Test_ParseFile(t *testing.T) {
+	testPath := "../../inputs/day01.example.txt"
+	expected := []int{1721, 979, 366, 299, 675, 1456}
 
-	data, err := Day09Parse(testPath)
+	data, err := ParseFile(testPath)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, data)
 }
 
-func Test_Day09Solution01(t *testing.T) {
-	data := []int{35, 20, 15, 25, 47, 40, 62, 55, 65, 95, 102, 117, 150, 182, 127, 219, 299, 277, 309, 576}
-	lookback := 5
-
-	expected := "127"
-	actual, err := Day09Solution01(data, lookback)
+func Test_Solution1(t *testing.T) {
+	data := []int{1721, 979, 366, 299, 675, 1456}
+	expected := "514579"
+	actual, err := Solution1(data)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, actual)
 }
 
-func Test_Day09Solution02(t *testing.T) {
-	data := []int{35, 20, 15, 25, 47, 40, 62, 55, 65, 95, 102, 117, 150, 182, 127, 219, 299, 277, 309, 576}
-	lookback := 5
-
-	expected := "62"
-	actual, err := Day09Solution02(data, lookback)
+func Test_Solution2(t *testing.T) {
+	data := []int{1721, 979, 366, 299, 675, 1456}
+	expected := "241861950"
+	actual, err := Solution2(data)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, actual)
 }
