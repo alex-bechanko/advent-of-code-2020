@@ -19,90 +19,20 @@ package day05
 import (
 	"bufio"
 	"fmt"
-	"math"
 	"os"
 	"sort"
 	"strconv"
 	"strings"
 )
 
-const Front string = "F"
-const Back string = "B"
-const Left string = "L"
-const Right string = "R"
-
-type IntComparison int
-
-const (
-	High IntComparison = iota
-	Low
-)
-
-type Seat struct {
-	Rows   []IntComparison
-	Cols   []IntComparison
-	Row    int
-	Column int
-	ID     int
-}
-
-func NewSeat(rows, cols []IntComparison) (Seat, error) {
-
-	row, err := findNum(0, 127, rows)
-	if err != nil {
-		return Seat{}, err
-	}
-
-	col, err := findNum(0, 7, cols)
-	if err != nil {
-		return Seat{}, err
-	}
-
-	return Seat{
-		Rows:   rows,
-		Cols:   cols,
-		Row:    row,
-		Column: col,
-		ID:     row*8 + col,
-	}, nil
-}
-
-func findNum(min, max int, directions []IntComparison) (int, error) {
-	numRange := max - min + 1
-	if numRange&(numRange-1) != 0 {
-		return 0, fmt.Errorf("numbers between min and max is not a power of 2, can't find exact number. min: %d, max: %d", min, max)
-	}
-
-	power := int(math.Log2(float64(numRange)))
-	if len(directions) != power {
-		return 0, fmt.Errorf("number of directions provided is not enough to find exact number. min: %d, max: %d, numDirections: %d", min, max, len(directions))
-	}
-
-	for i := 0; i < len(directions)-1; i++ {
-		direction := directions[i]
-
-		if direction == Low {
-			max = max - (max-min+1)/2
-		} else {
-			min = min + (max-min+1)/2
-		}
-	}
-
-	if directions[len(directions)-1] == Low {
-		return min, nil
-	}
-
-	return max, nil
-}
-
-func ParseFile(path string) ([]Seat, error) {
+func ParseFile(path string) ([]seat, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
 	defer file.Close()
 
-	var seats []Seat
+	var seats []seat
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
@@ -111,8 +41,8 @@ func ParseFile(path string) ([]Seat, error) {
 			return nil, fmt.Errorf("found input line that was not 10 characters in length: %s", line)
 		}
 
-		var rs []IntComparison
-		var cs []IntComparison
+		var rs []intComparison
+		var cs []intComparison
 		for i, c := range strings.Split(line, "") {
 			if i < 7 {
 				if c == Front {
@@ -135,7 +65,7 @@ func ParseFile(path string) ([]Seat, error) {
 			}
 		}
 
-		seat, err := NewSeat(rs, cs)
+		seat, err := newSeat(rs, cs)
 		if err != nil {
 			return nil, err
 		}
@@ -146,22 +76,22 @@ func ParseFile(path string) ([]Seat, error) {
 	return seats, nil
 }
 
-func Solution1(seats []Seat) (string, error) {
+func Solution1(seats []seat) (string, error) {
 	max := 0
 
 	for _, seat := range seats {
-		if seat.ID > max {
-			max = seat.ID
+		if seat.id > max {
+			max = seat.id
 		}
 	}
 
 	return strconv.Itoa(max), nil
 }
 
-func Solution2(seats []Seat) (string, error) {
+func Solution2(seats []seat) (string, error) {
 	ids := make([]int, len(seats))
 	for i, seat := range seats {
-		ids[i] = seat.ID
+		ids[i] = seat.id
 	}
 
 	sort.Ints(ids)

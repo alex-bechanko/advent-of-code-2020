@@ -24,27 +24,27 @@ import (
 
 func Test_ParseFile(t *testing.T) {
 	testPath := "../../inputs/day05.example.txt"
-	expected := []Seat{
+	expected := []seat{
 		{
-			Row:    70,
-			Column: 7,
-			ID:     567,
-			Rows:   []IntComparison{High, Low, Low, Low, High, High, Low},
-			Cols:   []IntComparison{High, High, High},
+			row:    70,
+			column: 7,
+			id:     567,
+			rows:   []intComparison{High, Low, Low, Low, High, High, Low},
+			cols:   []intComparison{High, High, High},
 		},
 		{
-			Row:    14,
-			Column: 7,
-			ID:     119,
-			Rows:   []IntComparison{Low, Low, Low, High, High, High, Low},
-			Cols:   []IntComparison{High, High, High},
+			row:    14,
+			column: 7,
+			id:     119,
+			rows:   []intComparison{Low, Low, Low, High, High, High, Low},
+			cols:   []intComparison{High, High, High},
 		},
 		{
-			Row:    102,
-			Column: 4,
-			ID:     820,
-			Rows:   []IntComparison{High, High, Low, Low, High, High, Low},
-			Cols:   []IntComparison{High, Low, Low},
+			row:    102,
+			column: 4,
+			id:     820,
+			rows:   []intComparison{High, High, Low, Low, High, High, Low},
+			cols:   []intComparison{High, Low, Low},
 		},
 	}
 	data, err := ParseFile(testPath)
@@ -53,27 +53,27 @@ func Test_ParseFile(t *testing.T) {
 }
 
 func Test_Solution1(t *testing.T) {
-	data := []Seat{
+	data := []seat{
 		{
-			Row:    70,
-			Column: 7,
-			ID:     567,
-			Rows:   []IntComparison{High, Low, Low, Low, High, High, Low},
-			Cols:   []IntComparison{High, High, High},
+			row:    70,
+			column: 7,
+			id:     567,
+			rows:   []intComparison{High, Low, Low, Low, High, High, Low},
+			cols:   []intComparison{High, High, High},
 		},
 		{
-			Row:    14,
-			Column: 7,
-			ID:     119,
-			Rows:   []IntComparison{Low, Low, Low, High, High, High, Low},
-			Cols:   []IntComparison{High, High, High},
+			row:    14,
+			column: 7,
+			id:     119,
+			rows:   []intComparison{Low, Low, Low, High, High, High, Low},
+			cols:   []intComparison{High, High, High},
 		},
 		{
-			Row:    102,
-			Column: 4,
-			ID:     820,
-			Rows:   []IntComparison{High, High, Low, Low, High, High, Low},
-			Cols:   []IntComparison{High, Low, Low},
+			row:    102,
+			column: 4,
+			id:     820,
+			rows:   []intComparison{High, High, Low, Low, High, High, Low},
+			cols:   []intComparison{High, Low, Low},
 		},
 	}
 	expected := "820"
@@ -83,27 +83,27 @@ func Test_Solution1(t *testing.T) {
 }
 
 func Test_Solution2(t *testing.T) {
-	data := []Seat{
+	data := []seat{
 		{
-			Row:    70,
-			Column: 7,
-			ID:     567,
-			Rows:   []IntComparison{High, Low, Low, Low, High, High, Low},
-			Cols:   []IntComparison{High, High, High},
+			row:    70,
+			column: 7,
+			id:     567,
+			rows:   []intComparison{High, Low, Low, Low, High, High, Low},
+			cols:   []intComparison{High, High, High},
 		},
 		{
-			Row:    14,
-			Column: 7,
-			ID:     119,
-			Rows:   []IntComparison{Low, Low, Low, High, High, High, Low},
-			Cols:   []IntComparison{High, High, High},
+			row:    14,
+			column: 7,
+			id:     119,
+			rows:   []intComparison{Low, Low, Low, High, High, High, Low},
+			cols:   []intComparison{High, High, High},
 		},
 		{
-			Row:    102,
-			Column: 4,
-			ID:     820,
-			Rows:   []IntComparison{High, High, Low, Low, High, High, Low},
-			Cols:   []IntComparison{High, Low, Low},
+			row:    102,
+			column: 4,
+			id:     820,
+			rows:   []intComparison{High, High, Low, Low, High, High, Low},
+			cols:   []intComparison{High, Low, Low},
 		},
 	}
 
