@@ -24,31 +24,31 @@ import (
 
 func Test_ParseFile(t *testing.T) {
 	testPath := "../../inputs/day06.example.txt"
-	expected := []PlaneGroup{
+	expected := []planeGroup{
 		{
-			AnyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
-			EveryoneAnswers: map[string]bool{"a": true, "b": true, "c": true},
-			Count:           1,
+			anyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
+			everyoneAnswers: map[string]bool{"a": true, "b": true, "c": true},
+			count:           1,
 		},
 		{
-			AnyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
-			EveryoneAnswers: map[string]bool{},
-			Count:           3,
+			anyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
+			everyoneAnswers: map[string]bool{},
+			count:           3,
 		},
 		{
-			AnyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
-			EveryoneAnswers: map[string]bool{"a": true},
-			Count:           2,
+			anyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
+			everyoneAnswers: map[string]bool{"a": true},
+			count:           2,
 		},
 		{
-			AnyoneAnswers:   map[string]bool{"a": true},
-			EveryoneAnswers: map[string]bool{"a": true},
-			Count:           4,
+			anyoneAnswers:   map[string]bool{"a": true},
+			everyoneAnswers: map[string]bool{"a": true},
+			count:           4,
 		},
 		{
-			AnyoneAnswers:   map[string]bool{"b": true},
-			EveryoneAnswers: map[string]bool{"b": true},
-			Count:           1,
+			anyoneAnswers:   map[string]bool{"b": true},
+			everyoneAnswers: map[string]bool{"b": true},
+			count:           1,
 		},
 	}
 
@@ -58,31 +58,31 @@ func Test_ParseFile(t *testing.T) {
 }
 
 func Test_Solution1(t *testing.T) {
-	data := []PlaneGroup{
+	data := []planeGroup{
 		{
-			AnyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
-			EveryoneAnswers: map[string]bool{"a": true, "b": true, "c": true},
-			Count:           1,
+			anyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
+			everyoneAnswers: map[string]bool{"a": true, "b": true, "c": true},
+			count:           1,
 		},
 		{
-			AnyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
-			EveryoneAnswers: map[string]bool{},
-			Count:           3,
+			anyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
+			everyoneAnswers: map[string]bool{},
+			count:           3,
 		},
 		{
-			AnyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
-			EveryoneAnswers: map[string]bool{"a": true},
-			Count:           2,
+			anyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
+			everyoneAnswers: map[string]bool{"a": true},
+			count:           2,
 		},
 		{
-			AnyoneAnswers:   map[string]bool{"a": true},
-			EveryoneAnswers: map[string]bool{"a": true},
-			Count:           4,
+			anyoneAnswers:   map[string]bool{"a": true},
+			everyoneAnswers: map[string]bool{"a": true},
+			count:           4,
 		},
 		{
-			AnyoneAnswers:   map[string]bool{"b": true},
-			EveryoneAnswers: map[string]bool{"b": true},
-			Count:           1,
+			anyoneAnswers:   map[string]bool{"b": true},
+			everyoneAnswers: map[string]bool{"b": true},
+			count:           1,
 		},
 	}
 	expected := "11"
@@ -92,31 +92,31 @@ func Test_Solution1(t *testing.T) {
 }
 
 func Test_Solution2(t *testing.T) {
-	data := []PlaneGroup{
+	data := []planeGroup{
 		{
-			AnyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
-			EveryoneAnswers: map[string]bool{"a": true, "b": true, "c": true},
-			Count:           1,
+			anyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
+			everyoneAnswers: map[string]bool{"a": true, "b": true, "c": true},
+			count:           1,
 		},
 		{
-			AnyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
-			EveryoneAnswers: map[string]bool{},
-			Count:           3,
+			anyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
+			everyoneAnswers: map[string]bool{},
+			count:           3,
 		},
 		{
-			AnyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
-			EveryoneAnswers: map[string]bool{"a": true},
-			Count:           2,
+			anyoneAnswers:   map[string]bool{"a": true, "b": true, "c": true},
+			everyoneAnswers: map[string]bool{"a": true},
+			count:           2,
 		},
 		{
-			AnyoneAnswers:   map[string]bool{"a": true},
-			EveryoneAnswers: map[string]bool{"a": true},
-			Count:           4,
+			anyoneAnswers:   map[string]bool{"a": true},
+			everyoneAnswers: map[string]bool{"a": true},
+			count:           4,
 		},
 		{
-			AnyoneAnswers:   map[string]bool{"b": true},
-			EveryoneAnswers: map[string]bool{"b": true},
-			Count:           1,
+			anyoneAnswers:   map[string]bool{"b": true},
+			everyoneAnswers: map[string]bool{"b": true},
+			count:           1,
 		},
 	}
 	expected := "6"

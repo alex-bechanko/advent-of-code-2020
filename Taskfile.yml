@@ -9,3 +9,7 @@ tasks:
   test:
     cmds:
       - go test ./...
+  coverage:
+    cmds:
+      - go test -coverprofile cp.out ./...
+      - rm cp.out

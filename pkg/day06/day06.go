@@ -20,95 +20,45 @@ import (
 	"bufio"
 	"os"
 	"strconv"
-	"strings"
 )
 
-type Passenger struct {
-	answers map[string]bool
-}
-
-func NewPassenger(as string) Passenger {
-	p := Passenger{
-		answers: make(map[string]bool),
-	}
-
-	for _, c := range strings.Split(as, "") {
-		p.answers[c] = true
-	}
-
-	return p
-}
-
-type PlaneGroup struct {
-	AnyoneAnswers   map[string]bool
-	EveryoneAnswers map[string]bool
-	Count           int
-}
-
-func NewPlaneGroup() PlaneGroup {
-	return PlaneGroup{
-		AnyoneAnswers: make(map[string]bool),
-		Count:         0,
-	}
-}
-
-func (grp *PlaneGroup) AddPassenger(p Passenger) {
-	for k := range p.answers {
-		grp.AnyoneAnswers[k] = true
-	}
-
-	grp.Count++
-	if grp.Count == 1 {
-		grp.EveryoneAnswers = p.answers
-	} else {
-		answers := make(map[string]bool)
-		for k := range grp.EveryoneAnswers {
-			if _, ok := p.answers[k]; ok {
-				answers[k] = true
-			}
-		}
-		grp.EveryoneAnswers = answers
-	}
-
-}
-
-func ParseFile(path string) ([]PlaneGroup, error) {
+func ParseFile(path string) ([]planeGroup, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
 	defer file.Close()
 
-	groups := make([]PlaneGroup, 0)
-	group := NewPlaneGroup()
+	groups := make([]planeGroup, 0)
+	group := newPlaneGroup()
 
 	fileScanner := bufio.NewScanner(file)
 	for fileScanner.Scan() {
 		line := fileScanner.Text()
 		if line == "" {
 			groups = append(groups, group)
-			group = NewPlaneGroup()
+			group = newPlaneGroup()
 			continue
 		}
 
-		group.AddPassenger(NewPassenger(line))
+		group.addPassenger(newPassenger(line))
 	}
 	groups = append(groups, group)
 	return groups, nil
 }
 
-func Solution1(plane []PlaneGroup) (string, error) {
+func Solution1(plane []planeGroup) (string, error) {
 	total := 0
 	for _, grp := range plane {
-		total += len(grp.AnyoneAnswers)
+		total += len(grp.anyoneAnswers)
 	}
 	return strconv.Itoa(total), nil
 }
 
-func Solution2(plane []PlaneGroup) (string, error) {
+func Solution2(plane []planeGroup) (string, error) {
 	total := 0
 	for _, grp := range plane {
-		total += len(grp.EveryoneAnswers)
+		total += len(grp.everyoneAnswers)
 	}
 	return strconv.Itoa(total), nil
 }
