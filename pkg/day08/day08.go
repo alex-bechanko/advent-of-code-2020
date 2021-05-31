@@ -19,49 +19,14 @@ package day08
 import (
 	"bufio"
 	"fmt"
-	"log"
 	"os"
 	"strconv"
-	"strings"
 )
 
-type InstrType string
-
-const (
-	Nop = "nop"
-	Acc = "acc"
-	Jmp = "jmp"
-)
-
-type Instruction struct {
-	Op  string
-	Arg string
-}
-
-type Program struct {
-	Ip       int
-	Acc      int
-	Commands []Instruction
-}
-
-func NewInstruction(line string) (Instruction, error) {
-	inst := Instruction{}
-
-	args := strings.SplitN(line, " ", 2)
-	if len(args) != 2 {
-		return inst, fmt.Errorf("Instruction string could not be broken into two pieces: \"%s\"", line)
-	}
-
-	inst.Op = strings.TrimSpace(args[0])
-	inst.Arg = strings.TrimSpace(args[1])
-
-	return inst, nil
-}
-
-func ParseFile(path string) (Program, error) {
-	program := Program{
-		Ip:  0,
-		Acc: 0,
+func ParseFile(path string) (program, error) {
+	program := program{
+		ip:  0,
+		acc: 0,
 	}
 
 	file, err := os.Open(path)
@@ -73,80 +38,37 @@ func ParseFile(path string) (Program, error) {
 	fileScanner := bufio.NewScanner(file)
 	for fileScanner.Scan() {
 		line := fileScanner.Text()
-		cmd, err := NewInstruction(line)
+		cmd, err := newInstruction(line)
 		if err != nil {
 			return program, err
 		}
-		program.Commands = append(program.Commands, cmd)
+		program.commands = append(program.commands, cmd)
 
 	}
 
 	return program, nil
 }
 
-func (prg *Program) Copy() Program {
-	p := Program{
-		Ip:  prg.Ip,
-		Acc: prg.Acc,
-	}
-	p.Commands = make([]Instruction, len(prg.Commands))
-	copy(p.Commands, prg.Commands)
-	return p
-}
-
-func (prg *Program) Run() bool {
-	runCmds := make(map[int]bool)
-
-	for {
-		if _, ok := runCmds[prg.Ip]; ok {
-			return false
-		}
-		if len(prg.Commands) <= prg.Ip {
-			return true
-		}
-
-		cmd := prg.Commands[prg.Ip]
-		runCmds[prg.Ip] = true
-		switch cmd.Op {
-		case Nop:
-			prg.Ip++
-		case Acc:
-			prg.Ip++
-			acc, err := strconv.Atoi(cmd.Arg)
-			if err != nil {
-				log.Fatal(err)
-			}
-			prg.Acc += acc
-		case Jmp:
-			inc, err := strconv.Atoi(cmd.Arg)
-			if err != nil {
-				log.Fatal(err)
-			}
-			prg.Ip += inc
-		}
-	}
-}
-
-func Solution1(prg Program) (string, error) {
+func Solution1(prg program) (string, error) {
 	prg.Run()
-	return strconv.Itoa(prg.Acc), nil
+	return strconv.Itoa(prg.acc), nil
 }
 
-func Solution2(start Program) (string, error) {
-	for i, inst := range start.Commands {
-		if inst.Op == Jmp {
+func Solution2(start program) (string, error) {
+	for i, inst := range start.commands {
+		if inst.op == Jmp {
 			prg := start.Copy()
-			prg.Commands[i].Op = Nop
+			prg.commands[i].op = Nop
 			terminated := prg.Run()
 			if terminated {
-				return strconv.Itoa(prg.Acc), nil
+				return strconv.Itoa(prg.acc), nil
 			}
-		} else if inst.Op == Nop {
+		} else if inst.op == Nop {
 			prg := start.Copy()
-			prg.Commands[i].Op = Jmp
+			prg.commands[i].op = Jmp
 			terminated := prg.Run()
 			if terminated {
-				return strconv.Itoa(prg.Acc), nil
+				return strconv.Itoa(prg.acc), nil
 			}
 		}
 	}

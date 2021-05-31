@@ -22,30 +22,53 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_ParseFile(t *testing.T) {
-	testPath := "../../inputs/day08.example.txt"
+func Test_newInstruction(t *testing.T) {
+	var inst instruction
+	var expected instruction
+	var err error
+
+	inst, err = newInstruction("nop +0")
+	expected = instruction{op: "nop", arg: "+0"}
+	assert.NoError(t, err)
+	assert.Equal(t, expected, inst)
+
+	inst, err = newInstruction("acc +1")
+	expected = instruction{op: "acc", arg: "+1"}
+	assert.NoError(t, err)
+	assert.Equal(t, expected, inst)
+
+	inst, err = newInstruction("jmp -3")
+	expected = instruction{op: "jmp", arg: "-3"}
+	assert.NoError(t, err)
+	assert.Equal(t, expected, inst)
+}
+
+func Test_programCopy(t *testing.T) {
+	prg := program{
+		acc: 0,
+		ip:  0,
+		commands: []instruction{
+			{"nop", "+0"},
+			{"nop", "+1"},
+			{"nop", "-3"},
+		},
+	}
+
 	expected := program{
-		ip:  0,
 		acc: 0,
+		ip:  0,
 		commands: []instruction{
-			{op: "nop", arg: "+0"},
-			{op: "acc", arg: "+1"},
-			{op: "jmp", arg: "+4"},
-			{op: "acc", arg: "+3"},
-			{op: "jmp", arg: "-3"},
-			{op: "acc", arg: "-99"},
-			{op: "acc", arg: "+1"},
-			{op: "jmp", arg: "-4"},
-			{op: "acc", arg: "+6"}},
+			{"nop", "+0"},
+			{"nop", "+1"},
+			{"nop", "-3"},
+		},
 	}
 
-	data, err := ParseFile(testPath)
-	assert.NoError(t, err)
-	assert.Equal(t, expected, data)
+	assert.Equal(t, prg.Copy(), expected)
 }
 
-func Test_Solution1(t *testing.T) {
-	data := program{
+func Test_programRun(t *testing.T) {
+	prg := program{
 		ip:  0,
 		acc: 0,
 		commands: []instruction{
@@ -59,29 +82,8 @@ func Test_Solution1(t *testing.T) {
 			{op: "jmp", arg: "-4"},
 			{op: "acc", arg: "+6"}},
 	}
-	expected := "5"
-	actual, err := Solution1(data)
-	assert.NoError(t, err)
-	assert.Equal(t, expected, actual)
-}
 
-func Test_Solution2(t *testing.T) {
-	data := program{
-		ip:  0,
-		acc: 0,
-		commands: []instruction{
-			{op: "nop", arg: "+0"},
-			{op: "acc", arg: "+1"},
-			{op: "jmp", arg: "+4"},
-			{op: "acc", arg: "+3"},
-			{op: "jmp", arg: "-3"},
-			{op: "acc", arg: "-99"},
-			{op: "acc", arg: "+1"},
-			{op: "jmp", arg: "-4"},
-			{op: "acc", arg: "+6"}},
-	}
-	expected := "8"
-	actual, err := Solution2(data)
-	assert.NoError(t, err)
-	assert.Equal(t, expected, actual)
+	prg.Run()
+	assert.Equal(t, 5, prg.acc)
+	assert.Equal(t, 1, prg.ip)
 }
