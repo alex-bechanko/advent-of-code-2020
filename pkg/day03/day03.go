@@ -18,53 +18,14 @@ package day03
 
 import (
 	"bufio"
-	"log"
 	"os"
 	"strconv"
 	"strings"
 )
 
-type Forest struct {
-	Rows         [][]string
-	RowLength    int
-	ColumnHeight int
-}
+func ParseFile(path string) (forest, error) {
 
-func (f Forest) String() string {
-	var sb strings.Builder
-	for _, r := range f.Rows {
-		for _, c := range r {
-			_, err := sb.WriteString(c)
-			if err != nil {
-				log.Fatal(err)
-			}
-		}
-		sb.WriteString("\n")
-	}
-
-	return sb.String()
-}
-
-func (f Forest) IsTree(x, y int) bool {
-
-	// forests are allowed to repeat on the x axis
-	x = x % f.RowLength
-	if x < 0 {
-		x += f.RowLength
-	}
-
-	// forests don't repeat on the y-axis, panic if it occurs
-	if y < 0 || y >= f.ColumnHeight {
-		log.Fatalf("Attempted to use an out-of-bounds y coordinate for forests: %d", y)
-	}
-
-	return f.Rows[y][x] == "#"
-
-}
-
-func ParseFile(path string) (Forest, error) {
-
-	forest := Forest{}
+	forest := forest{}
 
 	file, err := os.Open(path)
 	if err != nil {
@@ -86,41 +47,25 @@ func ParseFile(path string) (Forest, error) {
 		rows = append(rows, strings.Split(line, ""))
 	}
 
-	forest.Rows = rows
-	forest.RowLength = rowlength
-	forest.ColumnHeight = columnheight
+	forest.rows = rows
+	forest.rowLength = rowlength
+	forest.columnHeight = columnheight
 
 	return forest, nil
 
 }
 
-func TraverseSlope(forest Forest, dx, dy int) int {
-	x := 0
-	y := 0
-
-	trees := 0
-	for y < forest.ColumnHeight {
-		if forest.IsTree(x, y) {
-			trees++
-		}
-		x += dx
-		y += dy
-	}
-
-	return trees
+func Solution1(forest forest) (string, error) {
+	return strconv.Itoa(traverseSlope(forest, 3, 1)), nil
 }
 
-func Solution1(forest Forest) (string, error) {
-	return strconv.Itoa(TraverseSlope(forest, 3, 1)), nil
-}
-
-func Solution2(forest Forest) (string, error) {
+func Solution2(forest forest) (string, error) {
 	answer := 1
-	answer *= TraverseSlope(forest, 1, 1)
-	answer *= TraverseSlope(forest, 3, 1)
-	answer *= TraverseSlope(forest, 5, 1)
-	answer *= TraverseSlope(forest, 7, 1)
-	answer *= TraverseSlope(forest, 1, 2)
+	answer *= traverseSlope(forest, 1, 1)
+	answer *= traverseSlope(forest, 3, 1)
+	answer *= traverseSlope(forest, 5, 1)
+	answer *= traverseSlope(forest, 7, 1)
+	answer *= traverseSlope(forest, 1, 2)
 
 	return strconv.Itoa(answer), nil
 }

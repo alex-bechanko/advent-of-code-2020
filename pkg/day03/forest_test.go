@@ -22,31 +22,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_ParseFile(t *testing.T) {
-	testPath := "../../inputs/day03.example.txt"
-	expected := forest{
-		rowLength:    11,
-		columnHeight: 11,
-		rows: [][]string{
-			{".", ".", "#", "#", ".", ".", ".", ".", ".", ".", "."},
-			{"#", ".", ".", ".", "#", ".", ".", ".", "#", ".", "."},
-			{".", "#", ".", ".", ".", ".", "#", ".", ".", "#", "."},
-			{".", ".", "#", ".", "#", ".", ".", ".", "#", ".", "#"},
-			{".", "#", ".", ".", ".", "#", "#", ".", ".", "#", "."},
-			{".", ".", "#", ".", "#", "#", ".", ".", ".", ".", "."},
-			{".", "#", ".", "#", ".", "#", ".", ".", ".", ".", "#"},
-			{".", "#", ".", ".", ".", ".", ".", ".", ".", ".", "#"},
-			{"#", ".", "#", "#", ".", ".", ".", "#", ".", ".", "."},
-			{"#", ".", ".", ".", "#", "#", ".", ".", ".", ".", "#"},
-			{".", "#", ".", ".", "#", ".", ".", ".", "#", ".", "#"},
-		},
-	}
-	data, err := ParseFile(testPath)
-	assert.NoError(t, err)
-	assert.Equal(t, expected, data)
-}
-
-func Test_Solution1(t *testing.T) {
+func Test_traverseSlope(t *testing.T) {
 	data := forest{
 		rowLength:    11,
 		columnHeight: 11,
@@ -64,13 +40,12 @@ func Test_Solution1(t *testing.T) {
 			{".", "#", ".", ".", "#", ".", ".", ".", "#", ".", "#"},
 		},
 	}
-	expected := "7"
-	actual, err := Solution1(data)
-	assert.NoError(t, err)
+	expected := 7
+	actual := traverseSlope(data, 3, 1)
 	assert.Equal(t, expected, actual)
 }
 
-func Test_Solution2(t *testing.T) {
+func Test_isTree(t *testing.T) {
 	data := forest{
 		rowLength:    11,
 		columnHeight: 11,
@@ -88,8 +63,8 @@ func Test_Solution2(t *testing.T) {
 			{".", "#", ".", ".", "#", ".", ".", ".", "#", ".", "#"},
 		},
 	}
-	expected := "336"
-	actual, err := Solution2(data)
-	assert.NoError(t, err)
-	assert.Equal(t, expected, actual)
+	assert.True(t, data.isTree(2, 0))
+	assert.True(t, data.isTree(0, 1))
+	assert.False(t, data.isTree(0, 0))
+	assert.False(t, data.isTree(0, 10))
 }
