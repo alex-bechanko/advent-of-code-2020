@@ -28,7 +28,7 @@ func Test_Day01Parse(t *testing.T) {
 
 	data, err := Day01Parse(testPath)
 	assert.NoError(t, err)
-	assert.Equal(t, expected, data, "data does not match expected")
+	assert.Equal(t, expected, data)
 }
 
 func Test_Day01Solution01(t *testing.T) {

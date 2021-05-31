@@ -127,30 +127,30 @@ func (prg *Program) Run() bool {
 	}
 }
 
-func Day08Solution01(prg Program) string {
+func Day08Solution01(prg Program) (string, error) {
 	prg.Run()
-	return strconv.Itoa(prg.Acc)
+	return strconv.Itoa(prg.Acc), nil
 }
 
-func Day08Solution02(start Program) string {
+func Day08Solution02(start Program) (string, error) {
 	for i, inst := range start.Commands {
 		if inst.Op == Jmp {
 			prg := start.Copy()
 			prg.Commands[i].Op = Nop
 			terminated := prg.Run()
 			if terminated {
-				return strconv.Itoa(prg.Acc)
+				return strconv.Itoa(prg.Acc), nil
 			}
 		} else if inst.Op == Nop {
 			prg := start.Copy()
 			prg.Commands[i].Op = Jmp
 			terminated := prg.Run()
 			if terminated {
-				return strconv.Itoa(prg.Acc)
+				return strconv.Itoa(prg.Acc), nil
 			}
 		}
 	}
-	return "no solution"
+	return "", fmt.Errorf("no solution")
 }
 
 func Day08Solutions(path *string) {
@@ -159,9 +159,9 @@ func Day08Solutions(path *string) {
 		log.Fatal(err)
 	}
 
-	soln01 := Day08Solution01(prg)
+	soln01, _ := Day08Solution01(prg)
 	fmt.Printf("Solution 1: %s\n", soln01)
 
-	soln02 := Day08Solution02(prg)
+	soln02, _ := Day08Solution02(prg)
 	fmt.Printf("Solution 2: %s\n", soln02)
 }
