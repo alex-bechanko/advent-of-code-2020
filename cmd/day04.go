@@ -31,7 +31,7 @@ func init() {
 
 	var day04Cmd = &cobra.Command{
 		Use:   "day04",
-		Short: "Compute day 2 solutions",
+		Short: "Compute day 4 solutions",
 		Long:  "Computes part1 and part2 solutions for day 4 of Advent of Code 2020",
 		Run: func(cmd *cobra.Command, args []string) {
 			data, err := day04.ParseFile(fileInput)
