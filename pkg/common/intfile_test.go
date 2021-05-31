@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package day09
+package common
 
 import (
 	"testing"
@@ -22,22 +22,18 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_Solution1(t *testing.T) {
-	data := []int{35, 20, 15, 25, 47, 40, 62, 55, 65, 95, 102, 117, 150, 182, 127, 219, 299, 277, 309, 576}
-	lookback := 5
+func Test_ParseFile(t *testing.T) {
+	testPath := "../../inputs/day09.example.txt"
+	expected := []int{35, 20, 15, 25, 47, 40, 62, 55, 65, 95, 102, 117, 150, 182, 127, 219, 299, 277, 309, 576}
 
-	expected := "127"
-	actual, err := Solution1(data, lookback)
+	data, err := ParseIntFile(testPath)
 	assert.NoError(t, err)
-	assert.Equal(t, expected, actual)
-}
+	assert.Equal(t, expected, data)
 
-func Test_Solution2(t *testing.T) {
-	data := []int{35, 20, 15, 25, 47, 40, 62, 55, 65, 95, 102, 117, 150, 182, 127, 219, 299, 277, 309, 576}
-	lookback := 5
+	testPath = "../../inputs/day10.example01.txt"
+	expected = []int{16, 10, 15, 5, 1, 11, 7, 19, 6, 12, 4}
 
-	expected := "62"
-	actual, err := Solution2(data, lookback)
+	data, err = ParseIntFile(testPath)
 	assert.NoError(t, err)
-	assert.Equal(t, expected, actual)
+	assert.Equal(t, expected, data)
 }

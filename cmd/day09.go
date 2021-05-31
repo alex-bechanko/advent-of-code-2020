@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/alex-bechanko/advent-of-code-2020/pkg/common"
 	"github.com/alex-bechanko/advent-of-code-2020/pkg/day09"
 	"github.com/spf13/cobra"
 )
@@ -37,7 +38,7 @@ func init() {
 		Short: "Compute day 9 solutions",
 		Long:  "Computes part1 and part2 solutions for day 9 of Advent of Code 2020",
 		Run: func(cmd *cobra.Command, args []string) {
-			data, err := day09.ParseFile(fileInput)
+			data, err := common.ParseIntFile(fileInput)
 			if err != nil {
 				fmt.Fprintf(os.Stderr, "Error parsing data file: %v\n", err)
 				os.Exit(1)

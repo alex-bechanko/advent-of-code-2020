@@ -17,35 +17,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 package day09
 
 import (
-	"bufio"
 	"errors"
-	"os"
 	"strconv"
 )
-
-func ParseFile(path string) ([]int, error) {
-	xmas := make([]int, 0)
-
-	file, err := os.Open(path)
-	if err != nil {
-		return xmas, err
-	}
-	defer file.Close()
-
-	fileScanner := bufio.NewScanner(file)
-	for fileScanner.Scan() {
-		line := fileScanner.Text()
-
-		num, err := strconv.Atoi(line)
-		if err != nil {
-			return xmas, err
-		}
-
-		xmas = append(xmas, num)
-	}
-
-	return xmas, nil
-}
 
 func Solution1(xmas []int, lookback int) (string, error) {
 	valid, _, num := processXmas(xmas, lookback)

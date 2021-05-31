@@ -14,30 +14,39 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
-package day09
+package common
 
 import (
-	"testing"
-
-	"github.com/stretchr/testify/assert"
+	"bufio"
+	"io"
+	"os"
+	"strconv"
 )
 
-func Test_Solution1(t *testing.T) {
-	data := []int{35, 20, 15, 25, 47, 40, 62, 55, 65, 95, 102, 117, 150, 182, 127, 219, 299, 277, 309, 576}
-	lookback := 5
+func ParseIntReader(r io.Reader) ([]int, error) {
+	data := make([]int, 0)
+	scanner := bufio.NewScanner(r)
+	for scanner.Scan() {
+		line := scanner.Text()
 
-	expected := "127"
-	actual, err := Solution1(data, lookback)
-	assert.NoError(t, err)
-	assert.Equal(t, expected, actual)
+		num, err := strconv.Atoi(line)
+		if err != nil {
+			return nil, err
+		}
+
+		data = append(data, num)
+	}
+
+	return data, nil
 }
 
-func Test_Solution2(t *testing.T) {
-	data := []int{35, 20, 15, 25, 47, 40, 62, 55, 65, 95, 102, 117, 150, 182, 127, 219, 299, 277, 309, 576}
-	lookback := 5
+func ParseIntFile(path string) ([]int, error) {
 
-	expected := "62"
-	actual, err := Solution2(data, lookback)
-	assert.NoError(t, err)
-	assert.Equal(t, expected, actual)
+	file, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	return ParseIntReader(file)
 }
