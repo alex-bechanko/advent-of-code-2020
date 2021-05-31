@@ -18,6 +18,7 @@ package solutions
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -101,19 +102,19 @@ func ProcessXmas(xmas []int, lookback int) (bool, int, int) {
 	return true, 0, 0
 }
 
-func Day09Solution01(xmas []int, lookback int) string {
+func Day09Solution01(xmas []int, lookback int) (string, error) {
 	valid, _, num := ProcessXmas(xmas, lookback)
 	if valid {
-		return "no solution"
+		return "", errors.New("no solution")
 	}
 
-	return strconv.Itoa(num)
+	return strconv.Itoa(num), nil
 }
 
-func Day09Solution02(xmas []int, lookback int) string {
+func Day09Solution02(xmas []int, lookback int) (string, error) {
 	valid, index, num := ProcessXmas(xmas, lookback)
 	if valid {
-		return "no solution"
+		return "", errors.New("no solution")
 	}
 
 	//found the number, now to find the contigous set
@@ -124,14 +125,14 @@ func Day09Solution02(xmas []int, lookback int) string {
 			if sum == num {
 				small := SmallestInRange(xmas, i, j)
 				large := LargestInRange(xmas, i, j)
-				return strconv.Itoa(small + large)
+				return strconv.Itoa(small + large), nil
 			} else if sum > num {
 				break
 			}
 		}
 	}
 
-	return "no solution"
+	return "", errors.New("no solution")
 }
 
 func Day09Solutions(path *string, lookback int) {
@@ -140,9 +141,15 @@ func Day09Solutions(path *string, lookback int) {
 		log.Fatal(err)
 	}
 
-	soln01 := Day09Solution01(xmas, lookback)
+	soln01, err := Day09Solution01(xmas, lookback)
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Printf("Solution 1: %s\n", soln01)
 
-	soln02 := Day09Solution02(xmas, lookback)
+	soln02, err := Day09Solution02(xmas, lookback)
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Printf("Solution 2: %s\n", soln02)
 }
