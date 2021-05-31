@@ -23,40 +23,8 @@ import (
 	"strings"
 )
 
-type BagGraph struct {
-	Nodes map[string]bool
-	Edges []BagGraphEdge
-}
-
-func NewBagGraph() BagGraph {
-	return BagGraph{
-		Nodes: make(map[string]bool),
-		Edges: make([]BagGraphEdge, 0),
-	}
-}
-
-func (grph *BagGraph) AddNode(color string) {
-	grph.Nodes[color] = true
-}
-
-func (grph *BagGraph) AddEdge(start, end string, amount int) {
-	grph.AddNode(start)
-	grph.AddNode(end)
-	grph.Edges = append(grph.Edges, BagGraphEdge{
-		Start:  start,
-		End:    end,
-		Weight: amount,
-	})
-}
-
-type BagGraphEdge struct {
-	Start  string
-	End    string
-	Weight int
-}
-
-func ParseFile(path string) (BagGraph, error) {
-	bags := NewBagGraph()
+func ParseFile(path string) (bagGraph, error) {
+	bags := newBagGraph()
 
 	file, err := os.Open(path)
 	if err != nil {
@@ -73,7 +41,7 @@ func ParseFile(path string) (BagGraph, error) {
 		start := strings.TrimSpace(bagDescr[0])
 		start = strings.TrimSuffix(start, "bags")
 		start = strings.TrimSpace(start)
-		bags.AddNode(start)
+		bags.addNode(start)
 
 		if strings.TrimSpace(bagDescr[1]) == "no other bags" {
 			continue
@@ -91,14 +59,14 @@ func ParseFile(path string) (BagGraph, error) {
 			if err != nil {
 				return bags, err
 			}
-			bags.AddEdge(start, end, weight)
+			bags.addEdge(start, end, weight)
 		}
 	}
 
 	return bags, nil
 }
 
-func Solution1(grph BagGraph) (string, error) {
+func Solution1(grph bagGraph) (string, error) {
 	targetBag := "shiny gold"
 
 	traveled := make(map[string]bool)
@@ -112,13 +80,13 @@ func Solution1(grph BagGraph) (string, error) {
 		bag := stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
 
-		for _, edge := range grph.Edges {
-			if _, ok := traveled[edge.Start]; ok {
+		for _, edge := range grph.edges {
+			if _, ok := traveled[edge.start]; ok {
 				// already looked at this bag color, skip
 				continue
-			} else if edge.End == bag {
-				traveled[edge.Start] = true
-				stack = append(stack, edge.Start)
+			} else if edge.end == bag {
+				traveled[edge.start] = true
+				stack = append(stack, edge.start)
 			}
 		}
 	}
@@ -126,7 +94,7 @@ func Solution1(grph BagGraph) (string, error) {
 	return strconv.Itoa(len(traveled)), nil
 }
 
-func Solution2(grph BagGraph) (string, error) {
+func Solution2(grph bagGraph) (string, error) {
 	stack := []string{"shiny gold"}
 
 	bagCount := -1
@@ -139,12 +107,12 @@ func Solution2(grph BagGraph) (string, error) {
 		bagCount++
 		stack = stack[:len(stack)-1]
 
-		for _, edge := range grph.Edges {
-			if edge.Start != bag {
+		for _, edge := range grph.edges {
+			if edge.start != bag {
 				continue
 			}
-			for i := 0; i < edge.Weight; i++ {
-				stack = append(stack, edge.End)
+			for i := 0; i < edge.weight; i++ {
+				stack = append(stack, edge.end)
 			}
 		}
 	}

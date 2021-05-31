@@ -24,8 +24,8 @@ import (
 
 func Test_ParseFile(t *testing.T) {
 	testPath := "../../inputs/day07.example01.txt"
-	expected := BagGraph{
-		Nodes: map[string]bool{
+	expected := bagGraph{
+		nodes: map[string]bool{
 			"bright white": true,
 			"dark olive":   true,
 			"dark orange":  true,
@@ -36,20 +36,20 @@ func Test_ParseFile(t *testing.T) {
 			"shiny gold":   true,
 			"vibrant plum": true,
 		},
-		Edges: []BagGraphEdge{
-			{Start: "light red", End: "bright white", Weight: 1},
-			{Start: "light red", End: "muted yellow", Weight: 2},
-			{Start: "dark orange", End: "bright white", Weight: 3},
-			{Start: "dark orange", End: "muted yellow", Weight: 4},
-			{Start: "bright white", End: "shiny gold", Weight: 1},
-			{Start: "muted yellow", End: "shiny gold", Weight: 2},
-			{Start: "muted yellow", End: "faded blue", Weight: 9},
-			{Start: "shiny gold", End: "dark olive", Weight: 1},
-			{Start: "shiny gold", End: "vibrant plum", Weight: 2},
-			{Start: "dark olive", End: "faded blue", Weight: 3},
-			{Start: "dark olive", End: "dotted black", Weight: 4},
-			{Start: "vibrant plum", End: "faded blue", Weight: 5},
-			{Start: "vibrant plum", End: "dotted black", Weight: 6},
+		edges: []bagGraphEdge{
+			{start: "light red", end: "bright white", weight: 1},
+			{start: "light red", end: "muted yellow", weight: 2},
+			{start: "dark orange", end: "bright white", weight: 3},
+			{start: "dark orange", end: "muted yellow", weight: 4},
+			{start: "bright white", end: "shiny gold", weight: 1},
+			{start: "muted yellow", end: "shiny gold", weight: 2},
+			{start: "muted yellow", end: "faded blue", weight: 9},
+			{start: "shiny gold", end: "dark olive", weight: 1},
+			{start: "shiny gold", end: "vibrant plum", weight: 2},
+			{start: "dark olive", end: "faded blue", weight: 3},
+			{start: "dark olive", end: "dotted black", weight: 4},
+			{start: "vibrant plum", end: "faded blue", weight: 5},
+			{start: "vibrant plum", end: "dotted black", weight: 6},
 		},
 	}
 
@@ -59,8 +59,8 @@ func Test_ParseFile(t *testing.T) {
 }
 
 func Test_Solution1(t *testing.T) {
-	data := BagGraph{
-		Nodes: map[string]bool{
+	data := bagGraph{
+		nodes: map[string]bool{
 			"bright white": true,
 			"dark olive":   true,
 			"dark orange":  true,
@@ -71,20 +71,20 @@ func Test_Solution1(t *testing.T) {
 			"shiny gold":   true,
 			"vibrant plum": true,
 		},
-		Edges: []BagGraphEdge{
-			{Start: "light red", End: "bright white", Weight: 1},
-			{Start: "light red", End: "muted yellow", Weight: 2},
-			{Start: "dark orange", End: "bright white", Weight: 3},
-			{Start: "dark orange", End: "muted yellow", Weight: 4},
-			{Start: "bright white", End: "shiny gold", Weight: 1},
-			{Start: "muted yellow", End: "shiny gold", Weight: 2},
-			{Start: "muted yellow", End: "faded blue", Weight: 9},
-			{Start: "shiny gold", End: "dark olive", Weight: 1},
-			{Start: "shiny gold", End: "vibrant plum", Weight: 2},
-			{Start: "dark olive", End: "faded blue", Weight: 3},
-			{Start: "dark olive", End: "dotted black", Weight: 4},
-			{Start: "vibrant plum", End: "faded blue", Weight: 5},
-			{Start: "vibrant plum", End: "dotted black", Weight: 6},
+		edges: []bagGraphEdge{
+			{start: "light red", end: "bright white", weight: 1},
+			{start: "light red", end: "muted yellow", weight: 2},
+			{start: "dark orange", end: "bright white", weight: 3},
+			{start: "dark orange", end: "muted yellow", weight: 4},
+			{start: "bright white", end: "shiny gold", weight: 1},
+			{start: "muted yellow", end: "shiny gold", weight: 2},
+			{start: "muted yellow", end: "faded blue", weight: 9},
+			{start: "shiny gold", end: "dark olive", weight: 1},
+			{start: "shiny gold", end: "vibrant plum", weight: 2},
+			{start: "dark olive", end: "faded blue", weight: 3},
+			{start: "dark olive", end: "dotted black", weight: 4},
+			{start: "vibrant plum", end: "faded blue", weight: 5},
+			{start: "vibrant plum", end: "dotted black", weight: 6},
 		},
 	}
 	expected := "4"
@@ -95,8 +95,8 @@ func Test_Solution1(t *testing.T) {
 }
 
 func Test_Solution2(t *testing.T) {
-	data := BagGraph{
-		Nodes: map[string]bool{
+	data := bagGraph{
+		nodes: map[string]bool{
 			"bright white": true,
 			"dark olive":   true,
 			"dark orange":  true,
@@ -107,20 +107,20 @@ func Test_Solution2(t *testing.T) {
 			"shiny gold":   true,
 			"vibrant plum": true,
 		},
-		Edges: []BagGraphEdge{
-			{Start: "light red", End: "bright white", Weight: 1},
-			{Start: "light red", End: "muted yellow", Weight: 2},
-			{Start: "dark orange", End: "bright white", Weight: 3},
-			{Start: "dark orange", End: "muted yellow", Weight: 4},
-			{Start: "bright white", End: "shiny gold", Weight: 1},
-			{Start: "muted yellow", End: "shiny gold", Weight: 2},
-			{Start: "muted yellow", End: "faded blue", Weight: 9},
-			{Start: "shiny gold", End: "dark olive", Weight: 1},
-			{Start: "shiny gold", End: "vibrant plum", Weight: 2},
-			{Start: "dark olive", End: "faded blue", Weight: 3},
-			{Start: "dark olive", End: "dotted black", Weight: 4},
-			{Start: "vibrant plum", End: "faded blue", Weight: 5},
-			{Start: "vibrant plum", End: "dotted black", Weight: 6},
+		edges: []bagGraphEdge{
+			{start: "light red", end: "bright white", weight: 1},
+			{start: "light red", end: "muted yellow", weight: 2},
+			{start: "dark orange", end: "bright white", weight: 3},
+			{start: "dark orange", end: "muted yellow", weight: 4},
+			{start: "bright white", end: "shiny gold", weight: 1},
+			{start: "muted yellow", end: "shiny gold", weight: 2},
+			{start: "muted yellow", end: "faded blue", weight: 9},
+			{start: "shiny gold", end: "dark olive", weight: 1},
+			{start: "shiny gold", end: "vibrant plum", weight: 2},
+			{start: "dark olive", end: "faded blue", weight: 3},
+			{start: "dark olive", end: "dotted black", weight: 4},
+			{start: "vibrant plum", end: "faded blue", weight: 5},
+			{start: "vibrant plum", end: "dotted black", weight: 6},
 		},
 	}
 	expected := "32"
