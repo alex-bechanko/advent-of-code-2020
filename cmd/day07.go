@@ -26,7 +26,7 @@ import (
 
 func init() {
 
-	var defaultInput = fmt.Sprintf("inputs/day07.txt")
+	var defaultInput = "inputs/day07.txt"
 	var fileInput string
 
 	var day07Cmd = &cobra.Command{

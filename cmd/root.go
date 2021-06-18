@@ -20,8 +20,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var cfgFile string
-
 var rootCmd = &cobra.Command{
 	Use:   "advent-of-code-2020",
 	Short: "Compute solutions for Advent of Code 2020",

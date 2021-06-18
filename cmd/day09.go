@@ -27,7 +27,7 @@ import (
 
 func init() {
 
-	var defaultInput = fmt.Sprintf("inputs/day09.txt")
+	var defaultInput = "inputs/day09.txt"
 	var fileInput string
 
 	var defaultLookback = 25
