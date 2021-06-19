@@ -32,7 +32,7 @@ func init() {
 	var day16Cmd = &cobra.Command{
 		Use:   "day16",
 		Short: "Compute day 16 solutions",
-		Long:  "Computes part1 and part2 solutions for day 14 of Advent of Code 2020",
+		Long:  "Computes part1 and part2 solutions for day 16 of Advent of Code 2020",
 		Run: func(cmd *cobra.Command, args []string) {
 			data1, err := day16.Parse(fileInput)
 			if err != nil {
